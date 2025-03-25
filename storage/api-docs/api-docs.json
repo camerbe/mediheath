@@ -1,0 +1,37 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Centre",
+        "description": "Documentation de l'API pour la gestion des centres",
+        "contact": {
+            "email": "contact@example.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/poles": {
+            "get": {
+                "tags": [
+                    "Poles"
+                ],
+                "summary": "Récupérer la liste des pôles",
+                "operationId": "b27c75dbc98737585956d7cdf9e964b7",
+                "responses": {
+                    "200": {
+                        "description": "Liste des poles"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Poles",
+            "description": "Poles"
+        }
+    ]
+}
