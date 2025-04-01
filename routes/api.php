@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 })->middleware('auth:sanctum');*/
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::get('homes/last', [HomeController::class, 'getOneHome']);
+Route::get('centres/last', [CentreController::class, 'getOneCentre']);
 Route::group(['middleware' => 'auth:api'], function (){
     Route::post('auth/logout', [AuthController::class, 'logout']);
     Route::apiResources([
@@ -25,6 +27,4 @@ Route::group(['middleware' => 'auth:api'], function (){
 });
 
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:api']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+

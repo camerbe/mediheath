@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('homes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->tinyText('location');
-            $table->string('open_hour');
-            $table->string('doctor_image');
-            $table->tinyText('doctor_description');
+            $table->tinyText('open_hour');
+            $table->longText('doctor_image');
+            $table->text('doctor_description');
+            $table->json('meta');
             $table->timestamps();
         });
     }

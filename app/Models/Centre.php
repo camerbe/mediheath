@@ -25,7 +25,15 @@ class Centre extends Model implements HasMedia
      */
     protected $primaryKey = 'id';
 
-    protected $fillable = ['image'];
+    protected $fillable = [
+        'description',
+        'photo_1',
+        'photo_2',
+        'photo_3',
+        'photo_4',
+        'photo_5',
+        'meta',
+    ];
     protected $casts = ['image' => 'array', ];
     protected  function image():Attribute{
         return Attribute::make(

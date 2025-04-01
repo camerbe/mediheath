@@ -11,9 +11,13 @@ class TeamTypeRepository extends Repository
         parent::__construct($teamType);
     }
 
-    public function all()
+    /*public function all()
     {
         return parent::all();
+    }*/
+    public function all($orderBy = ['name' => 'asc'])
+    {
+        return parent::all($orderBy);
     }
 
     public function find($id)

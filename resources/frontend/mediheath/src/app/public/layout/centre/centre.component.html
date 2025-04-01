@@ -1,0 +1,39 @@
+<label class="text-gray-50 uppercase shadow-2xl"><i class="pi pi-palette text-xl"></i> Le Centre</label>
+<p-splitter
+[panelSizes]="[70, 30]"
+[layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full p-4"
+>
+  <ng-template pTemplate>
+    <div class="m-1 p-3">
+      <video
+      autoplay="true"
+      muted
+      loop
+      >
+        <source src="../../../../../medihealth.webm" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </ng-template>
+  <ng-template pTemplate>
+    <div class="grid gap-1">
+      <div *ngFor="let image of images" class="col-6 md:col-3 p-4">
+        <p-image
+            class="p-3"
+            src="{{image.original_url.replace('localhost', 'localhost:8000')  }}"
+            [preview]="true"
+            alt="Image"
+            [style]="{'width': '50px', 'height':'50px', 'object-fit': 'cover'}"
+            >
+                <ng-template pTemplate="indicator">
+                    <i class="pi pi-check"></i>
+                </ng-template>
+        </p-image>
+
+      </div>
+
+    </div>
+
+
+  </ng-template>
+</p-splitter>

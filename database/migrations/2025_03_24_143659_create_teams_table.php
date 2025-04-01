@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->json('staff');
+            $table->json('meta');
             $table->uuid('teamtype_id');
             $table->foreign('teamtype_id')
                 ->references('id')

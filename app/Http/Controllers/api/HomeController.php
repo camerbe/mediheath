@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Home;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,13 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 class HomeController extends Controller
 {
     protected HomeService $homeService;
-
+    protected $lastHome;
     /**
      * @param HomeService $homeService
      */
     public function __construct(HomeService $homeService)
     {
         $this->homeService = $homeService;
+        $this->lastHome=Home::last();
     }
 
 
@@ -48,6 +51,11 @@ class HomeController extends Controller
         //
         $home=$this->homeService->create($request->all());
         if ($home){
+
+            $arr=ImageHelper::decodeBase64Image($request->input('doctor_image'));
+            $home->addMediaFromBase64($arr['base64Image'])
+                ->usingFileName($arr['filename'])
+                ->toMediaCollection('home');
             return response()->json([
                 'success'=>true,
                 'data'=>$home,
@@ -117,6 +125,21 @@ class HomeController extends Controller
         return response()->json([
             "success"=>false,
             "message"=>"Erreur lors de la suppression du home"
+        ],Response::HTTP_NOT_FOUND);
+    }
+    public function getOneHome(){
+        $home=$this->homeService->find($this->lastHome->id);
+        if ($home){
+            return response()->json([
+                'success'=>true,
+                'data'=>$home,
+                'photo'=>$home->getFirstMediaUrl('home'),
+                'message'=>"FrontEnd Home trouvé"
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "success"=>false,
+            "message"=>"FrontEnd Home inexistant"
         ],Response::HTTP_NOT_FOUND);
     }
 }

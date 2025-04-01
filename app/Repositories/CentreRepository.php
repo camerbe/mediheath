@@ -11,9 +11,9 @@ class CentreRepository extends Repository
         parent::__construct($centre);
     }
 
-    public function all()
+    public function all($orderBy = ['created_at' => 'desc'])
     {
-        return parent::all();
+        return parent::all($orderBy);
     }
 
     public function find($id)
@@ -23,6 +23,7 @@ class CentreRepository extends Repository
 
     public function create(array $data):Centre
     {
+        $data['meta']=json_encode($data['meta']);
        return parent::create($data);
 
     }

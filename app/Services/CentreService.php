@@ -30,6 +30,6 @@ class CentreService
         return $this->centreRepository->find($id);
     }
     public function all(){
-        return $this->centreRepository->all();
+        return $this->centreRepository->all(['created_at'=>'desc']);
     }
 }

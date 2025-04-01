@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('centres', function (Blueprint $table) {
+
             $table->uuid('id')->primary();
-            $table->json('image');
+            $table->string('description')->nullable();
+            $table->longText('photo_1')->nullable();
+            $table->longText('photo_2')->nullable();
+            $table->longText('photo_3')->nullable();
+            $table->longText('photo_4')->nullable();
+            $table->longText('photo_5')->nullable();
+            $table->json('meta');
             $table->timestamps();
         });
     }

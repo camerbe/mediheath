@@ -41,7 +41,7 @@ class Pole extends Model implements HasMedia
         $this->addMediaCollection('pole')
             ->withResponsiveImages();
     }
-    /*public static function last(){
-        return static::all()->last();
-    }*/
+    public static function last(){
+        return static::latest()->first();
+    }
 }

@@ -15,9 +15,21 @@ class Repository implements IRepository
     }
 
 
-    public function all()
+    public function all($orderBy = ['created_at' => 'desc'])
     {
-        return $this->model->all();
+        $query = $this->model->query();
+
+        foreach ($orderBy as $column => $direction) {
+            if (!is_string($column)) {
+                continue;
+            }
+            $direction = strtolower($direction);
+            if (!in_array($direction, ['asc', 'desc'])) {
+                $direction = 'desc';
+            }
+            $query->orderBy($column, $direction);
+        }
+        return $query->get();
     }
 
     public function find($id)

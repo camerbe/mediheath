@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\ImageHelper;
 use App\Models\Home;
 use App\Repositories\IRepository;
 
@@ -28,7 +29,10 @@ class HomeService
         return $this->homeRepository->find($id);
     }
     public function all(){
-        return $this->homeRepository->all();
+        return $this->homeRepository->all(['created_at'=>'desc']);
+    }
+    public function getHomeById(string $id){
+        return $this->homeRepository->find($id);
     }
 
 }

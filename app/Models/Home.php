@@ -27,6 +27,7 @@ class Home extends Model implements HasMedia
         'open_hour',
         'doctor_image',
         'doctor_description',
+        'meta',
 
     ];
     public function registerMediaCollections(): void

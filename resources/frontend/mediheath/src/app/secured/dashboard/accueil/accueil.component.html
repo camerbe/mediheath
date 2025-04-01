@@ -1,48 +1,117 @@
-<div class="flex align-items-center justify-content-center min-h-screen bg-gray-100">
+<div class="container mx-auto p-4 max-w-2xl">
+  <div class="surface-card p-4 shadow-2 border-round">
+    <form [formGroup]="frmHome" class="p-fluid grid" (ngSubmit)="onSubmit()">
+      <div class="field col-12 md:col-4">
+        <label for="description">Description</label>
+        <input
+          pInputText
+          id="description"
+          formControlName="description"
+          placeholder="Description"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': description?.invalid && (description?.dirty || description?.touched)
+          }"
+        >
+        <small *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+              class="p-error">
+          <span *ngIf="description?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="description?.errors?.['maxlength']">Maximum 160 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="keywords">Mots clés</label>
+        <input
 
-  <div class="w-full max-w-lg bg-white p-6 border-round shadow-2">
-      <h2 class="text-2xl font-bold text-center text-gray-700 mb-4">Formulaire</h2>
+          pInputText
+          id="keywords"
+          formControlName="keywords"
+          placeholder="Mots clés"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
+          }"
+        >
+        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
+              class="p-error">
+          <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="hashtag">HashTag</label>
+        <input
 
-      <form class="grid grid-nogutter gap-3">
-          <!-- Champ 1 -->
-          <div class="flex grid-cols-2 md:grid-cols-1">
-              <div class="col-6">
-                <label for="nom" class="block text-gray-700 mb-1">Nom</label>
-                <editor [init]="init"/>
-              </div>
-              <div class="col-6">
-                <label for="nom" class="block text-gray-700 mb-1">Nom</label>
-              </div>
+          pInputText
+          id="hashtag"
+          formControlName="hashtag"
+          placeholder="Hashtags"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
+          }"
+        >
+        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
+              class="p-error">
+          <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
 
+      <!----->
+      <div class="field col-12 md:col-6">
+        <label for="open_hour">Heure d'ouverture</label>
+        <p-editor
+        formControlName="open_hour"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
 
-          </div>
+      </div>
 
-          <!-- Champ 2 -->
-          <div class="col-12 md:col-6">
-              <label for="prenom" class="block text-gray-700 mb-1">Prénom</label>
-              <textarea id="prenom" class="p-inputtextarea p-component w-full border-1 border-gray-300 border-round focus:ring-2 focus:ring-primary" rows="5" placeholder="Entrez votre prénom"></textarea>
-          </div>
+      <div class="field col-12 md:col-6">
+        <label for="doctor_image">Image</label>
+        <p-editor
+        formControlName="doctor_image"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
+      </div>
 
-          <!-- Champ 3 -->
-          <div class="col-12 md:col-6">
-              <label for="email" class="block text-gray-700 mb-1">Email</label>
-              <input id="email" type="email" class="p-inputtext p-component w-full border-1 border-gray-300 border-round focus:ring-2 focus:ring-primary" placeholder="Entrez votre email">
-          </div>
+      <!-- Deuxième ligne -->
+      <div class="field col-12 md:col-6">
+        <label for="location">Location</label>
+        <p-editor
+          id="location"
+          formControlName="location"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+      </div>
 
-          <!-- Champ 4 -->
-          <div class="col-12 md:col-6">
-              <label for="telephone" class="block text-gray-700 mb-1">Téléphone</label>
-              <input id="telephone" type="tel" class="p-inputtext p-component w-full border-1 border-gray-300 border-round focus:ring-2 focus:ring-primary" placeholder="Votre numéro">
-          </div>
+      <div class="field col-12 md:col-6">
+        <label for="doctor_description">Description</label>
+        <p-editor
+          id="doctor_description"
+          formControlName="doctor_description"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+      </div>
 
-          <!-- Bouton Submit -->
-          <div class="col-12 flex justify-content-center mt-3">
-              <button type="submit" class="p-button p-component bg-blue-500 text-white py-2 px-4 border-round flex align-items-center gap-2 hover:bg-blue-600">
-                  <i class="pi pi-check"></i>
-                  <span>Envoyer</span>
-              </button>
-          </div>
-      </form>
+      <!-- Bouton de soumission -->
+      <div class="field col-12 flex justify-content-end">
+        <button
+          pButton
+          pRipple
+          type="submit"
+          label="Enregistrer"
+          class="p-button-primary"
+          [disabled]="frmHome.invalid"
+        ></button>
+      </div>
+    </form>
   </div>
-
 </div>
+
+
+
+

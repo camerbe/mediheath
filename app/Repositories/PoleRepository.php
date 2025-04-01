@@ -11,9 +11,9 @@ class PoleRepository extends Repository
         parent::__construct($pole);
     }
 
-    public function all()
+    public function all($orderBy = ['created_at' => 'desc'])
     {
-        return parent::all();
+        return parent::all($orderBy);
     }
 
     public function find($id)

@@ -30,6 +30,6 @@ class TeamTypeService
         return $this->teamtypeRepository->find($id);
     }
     public function all(){
-        return $this->teamtypeRepository->all();
+        return $this->teamtypeRepository->all(['name'=>'asc']);
     }
 }

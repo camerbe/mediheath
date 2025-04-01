@@ -1,0 +1,35 @@
+<div class="container mx-auto p-4 max-w-2xl">
+  <div class="surface-card p-4 shadow-2 border-round">
+    <p-table
+    [value]="teamtypes"
+    [paginator]="true"
+    [rows]="5"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+            <p-button [outlined]="true" icon="pi pi-plus" label="Nouveau" (onClick)="addTeamType()" />
+            <p-button [outlined]="true" icon="pi pi-list" label="Liste des Team Type" />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" class="flex justify-content-between">
+        <tr class="capitalize">
+          <th>équipe</th>
+          <th class="flex justify-content-end">Action</th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-teamtype>
+        <tr>
+          <td>{{ teamtype.name }}</td>
+          <td class="flex justify-content-end">
+
+            <p-button icon="pi pi-trash" [rounded]="true" class="mr-2" severity="danger" size="small" (onClick)="deleteTeamType(teamtype.id)" />
+            <p-button icon="pi pi-pencil" [rounded]="true"  severity="info" size="small" (onClick)="editTeamType(teamtype.id)"/>
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+

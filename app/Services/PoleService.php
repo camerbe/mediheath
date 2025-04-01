@@ -29,6 +29,6 @@ class PoleService
         return $this->poleRepository->find($id);
     }
     public function all(){
-        return $this->poleRepository->all();
+        return $this->poleRepository->all(['created_at'=>'desc']);
     }
 }
