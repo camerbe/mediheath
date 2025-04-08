@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -6,13 +7,23 @@ import { MenuItem } from 'primeng/api';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isMobile = window.innerWidth < 768;
+    }
+  }
+
+  isMobile!: boolean
   useSplitter:boolean=false;
   items: MenuItem[] = [
     {
       label: 'Accueil',
       icon: 'pi pi-home',
       routerLink: ['/home'],
+      routerLinkActive: "text-rose-500 hover:text-rose-500",
       routerLinkActiveOptions: { exact: true },
       command: () => {}
     },
@@ -23,7 +34,21 @@ export class LayoutComponent {
       routerLinkActiveOptions: { exact: true },
       command: () => {}
     },
-    { label: "Pôle D'excellence", icon: 'pi pi-building-columns', command: () => {} },
+    {
+      label: "Pôle D'excellence",
+      icon: 'pi pi-building-columns',
+      routerLink: ['/pole'],
+      routerLinkActiveOptions: { exact: true },
+      command: () => {}
+    },
     { label: "Notre Équipe", icon: 'pi pi-users', command: () => {} },
   ];
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Code dépendant de window
+      this.isMobile = window.innerWidth < 768;
+    }
+  }
 }

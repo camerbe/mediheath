@@ -24,6 +24,7 @@ class Pole extends Model implements HasMedia
     protected $fillable = [
         'image',
         'description',
+        'meta',
 
 
     ];

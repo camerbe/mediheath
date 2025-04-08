@@ -18,7 +18,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { CentreComponent } from './layout/centre/centre.component';
 import { ImageModule } from 'primeng/image';
 import { TagModule } from 'primeng/tag';
-
+import { PoleComponent } from './layout/pole/pole.component';
+import { MessagesModule } from 'primeng/messages';
+import { MedicalTeamComponent } from './layout/medical-team/medical-team.component';
+import { OtherTeamComponent } from './layout/other-team/other-team.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import { TagModule } from 'primeng/tag';
     LoginComponent,
     LayoutComponent,
     HomeComponent,
-    CentreComponent
+    CentreComponent,
+    PoleComponent,
+    MedicalTeamComponent,
+    OtherTeamComponent
   ],
   imports: [
     CommonModule,
@@ -40,8 +46,8 @@ import { TagModule } from 'primeng/tag';
     MenubarModule,
     TagModule,
     DividerModule,
-    ImageModule
-
+    ImageModule,
+    MessagesModule
 
   ]
 })

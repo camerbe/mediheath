@@ -1,0 +1,106 @@
+<div class="container mx-auto p-4 max-w-2xl">
+  <div class="surface-card p-4 shadow-2 border-round">
+    <form [formGroup]="frmPole" class="p-fluid grid" (ngSubmit)="onSubmit()">
+      <div class="field col-12 md:col-4">
+        <label for="metadescription">Meta Description</label>
+        <input
+          pInputText
+          id="metadescription"
+          formControlName="metadescription"
+          placeholder="Description"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)
+          }"
+        >
+        <small *ngIf="metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)"
+              class="p-error">
+          <span *ngIf="metadescription?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="metadescription?.errors?.['maxlength']">Maximum 160 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="keywords">Mots clés</label>
+        <input
+
+          pInputText
+          id="keywords"
+          formControlName="keywords"
+          placeholder="Mots clés"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
+          }"
+        >
+        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
+              class="p-error">
+          <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="hashtag">HashTag</label>
+        <input
+
+          pInputText
+          id="hashtag"
+          formControlName="hashtag"
+          placeholder="Hashtags"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
+          }"
+        >
+        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
+              class="p-error">
+          <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
+
+      <!----->
+      <div class="field col-12 md:col-6">
+        <label for="description">Description</label>
+        <p-editor
+        formControlName="description"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
+        <small *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+              class="p-error">
+          <span *ngIf="description?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="image">Image</label>
+        <p-editor
+        formControlName="image"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
+        <small *ngIf="image?.invalid && (image?.dirty || image?.touched)"
+              class="p-error">
+          <span *ngIf="image?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+
+      <!-- Bouton de soumission -->
+      <div class="field col-12 flex justify-content-end">
+        <button
+          pButton
+          pRipple
+          type="submit"
+          label="Enregistrer"
+          class="p-button-primary"
+
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+

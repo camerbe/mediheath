@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('poles', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->longText('image');
-            $table->tinyText('description');
+            $table->Text('description');
             $table->json('meta');
             $table->timestamps();
         });

@@ -10,7 +10,7 @@
 
     <ng-template pTemplate>
       <div  class="col flex align-items-center justify-content-center">
-        <img [src]="imgUrl" [alt]="lastHome.meta.description" class="w-full max-w-full border-round shadow-md" />
+        <img [src]="imgUrl" alt="MediHealth" class="w-full max-w-full border-round shadow-md" />
       </div>
 
     </ng-template>
@@ -23,20 +23,20 @@
 <ng-template pTemplate>
   <div class="flex flex-column justify-between items-end px-3 py-2">
     <!-- <i class="pi pi-map-marker text-green-500 self-end" style="font-size: 2.5rem"></i> -->
-    <p class="text-gray-600 text-left flex-1" [innerHTML]="lastHome.location"></p>
+    <p *ngIf="lastHome" class="text-gray-600 text-left flex-1" [innerHTML]="lastHome.location"></p>
 
   </div>
 </ng-template>
 <ng-template pTemplate>
   <div class="flex flex-column justify-between items-end px-3 py-2">
     <!-- <i class="pi pi-calendar-times py-2 self-end" style="font-size: 2.5rem"></i> -->
-    <p class=" text-gray-600 text-left flex-1" [innerHTML]="lastHome.open_hour"></p>
+    <p *ngIf="lastHome"  class=" text-gray-600 text-left flex-1" [innerHTML]="lastHome.open_hour"></p>
 
   </div>
 </ng-template>
 
 <ng-template pTemplate>
-    <p class="py-2 px-3 text-gray-700 text-justify w-full"  [innerHTML]="lastHome?.doctor_description"></p>
+    <p *ngIf="lastHome" class="py-2 px-3 text-gray-700 text-justify w-full prose md:prose-lg lg:prose-xl"  [innerHTML]="lastHome.doctor_description"></p>
   </ng-template>
 </p-splitter>
 <div>

@@ -24,6 +24,7 @@ class PoleRepository extends Repository
     public function create(array $data):Pole
     {
         //dd($data);
+        $data['meta']=json_encode($data['meta']);
         return parent::create($data);
     }
 

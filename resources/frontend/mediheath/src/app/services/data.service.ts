@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DataService<T> {
 
-  constructor(protected httpClient:HttpClient, @Inject(String) private url: string) { }
+  constructor(@Inject(HttpClient) protected httpClient: HttpClient, @Inject(String) private url: string) { }
 
   getAll(): Observable<T[]> {
     return this.httpClient.get<T[]>(this.url)

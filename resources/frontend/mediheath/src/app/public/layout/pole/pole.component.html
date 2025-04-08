@@ -1,0 +1,21 @@
+<label class="text-gray-50 uppercase shadow-2xl md:py-4"><i class="pi pi-building-columns text-xl"></i> Le Pôle d'excellence</label>
+<p-splitter
+  [panelSizes]="[40, 60]"
+  [layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
+>
+    <ng-template pTemplate>
+      <div  class="col flex align-items-center justify-content-center">
+          <img alt="Card" [src]="imgUrl" />
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate>
+      <div  class="col flex align-items-center justify-content-center">
+        <p *ngIf="lastPole" class="text-gray-600 text-left flex-1 md:text-xl prose md:prose-lg lg:prose-xl px-2" [innerHTML]="lastPole.description"></p>
+      </div>
+
+    </ng-template>
+
+</p-splitter>
+
+

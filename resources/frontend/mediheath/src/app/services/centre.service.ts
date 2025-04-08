@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class CentreService extends DataService<Centre>{
 
-  constructor(httpClient:HttpClient) {
+  constructor(@Inject(HttpClient) httpClient:HttpClient) {
         super(httpClient,environment.baseUrl+`/centres`);
     }
     getLast():Observable<Centre>{

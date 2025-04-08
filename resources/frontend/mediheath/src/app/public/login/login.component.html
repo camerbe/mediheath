@@ -19,6 +19,14 @@
 
 
         </div>
+        <div *ngIf="erreur && erreur.length"  class="mb-4">
+          <p-messages
+          severity="danger"
+          [value]="[{ severity: 'error', summary: 'Erreur', detail: erreur }]"
+          [enableService]="false"
+          [closable]="false" />
+
+        </div>
         <p-button type="submit" label="Se connecter" icon="pi pi-check" iconPos="right" />
         <!--<button type="submit" class="p-button p-component w-full bg-primary text-white py-2 border-round hover:bg-primary-700" icon="pi pi-check">Se connecter</button>-->
     </form>

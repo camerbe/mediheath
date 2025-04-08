@@ -13,6 +13,12 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CentreComponent } from './centre/centre.component';
 import { CentreListComponent } from './centre/centre-list/centre-list.component';
+import { PoleComponent } from './pole/pole.component';
+import { PoleListComponent } from './pole/pole-list/pole-list.component';
+import { MedicalTeamComponent } from './medical-team/medical-team.component';
+import { MedicalTeamListComponent } from './medical-team/medical-team-list/medical-team-list.component';
+import { OtherTeamComponent } from './other-team/other-team.component';
+import { OtherTeamListComponent } from './other-team/other-team-list/other-team-list.component';
 
 
 @NgModule({
@@ -22,12 +28,16 @@ import { CentreListComponent } from './centre/centre-list/centre-list.component'
     TeamTypeComponent,
     TeamTypeListComponent,
     CentreComponent,
-    CentreListComponent
+    CentreListComponent,
+    PoleComponent,
+    PoleListComponent,
+    MedicalTeamComponent,
+    MedicalTeamListComponent,
+    OtherTeamComponent,
+    OtherTeamListComponent
   ],
   imports: [
     CommonModule,
-
-
     ButtonModule,
     SpeedDialModule,
     TableModule,

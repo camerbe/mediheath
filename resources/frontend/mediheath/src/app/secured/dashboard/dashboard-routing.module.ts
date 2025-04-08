@@ -10,6 +10,15 @@ import { homeResolver } from '../../shared/resolvers/home.resolver';
 import { CentreComponent } from './centre/centre.component';
 import { CentreListComponent } from './centre/centre-list/centre-list.component';
 import { centreResolver } from '../../shared/resolvers/centre.resolver';
+import { PoleComponent } from './pole/pole.component';
+import { PoleListComponent } from './pole/pole-list/pole-list.component';
+import { poleResolver } from '../../shared/resolvers/pole.resolver';
+import { medicalTeamResolver } from '../../shared/resolvers/medical-team.resolver';
+import { otherTeamResolver } from '../../shared/resolvers/other-team.resolver';
+import { OtherTeamComponent } from './other-team/other-team.component';
+import { OtherTeamListComponent } from './other-team/other-team-list/other-team-list.component';
+import { MedicalTeamComponent } from './medical-team/medical-team.component';
+import { MedicalTeamListComponent } from './medical-team/medical-team-list/medical-team-list.component';
 
 const routes: Routes = [
   {
@@ -30,6 +39,23 @@ const routes: Routes = [
       {path:'centre/list',component:CentreListComponent},
       { path : "centre/show/:id",component:CentreComponent,
         resolve : { centre : centreResolver },
+      },
+      {path:'pole',component:PoleComponent},
+      {path:'pole/list',component:PoleListComponent},
+      { path : "pole/show/:id",component:PoleComponent,
+        resolve : { pole : poleResolver },
+      },
+
+      {path:'medical',component:MedicalTeamComponent},
+      {path:'medical/list',component:MedicalTeamListComponent},
+      { path : "medical/show/:id",component:MedicalTeamComponent,
+        resolve : { medical : medicalTeamResolver },
+      },
+
+      {path:'other',component:OtherTeamComponent},
+      {path:'other/list',component:OtherTeamListComponent},
+      { path : "other/show/:id",component:OtherTeamComponent,
+        resolve : { other : otherTeamResolver },
       },
 
 

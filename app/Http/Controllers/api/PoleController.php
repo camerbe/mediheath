@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Pole;
 use App\Services\PoleService;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,13 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 class PoleController extends Controller
 {
     protected PoleService $poleService;
-
+    protected $lastPole;
     /**
      * @param PoleService $poleService
      */
     public function __construct(PoleService $poleService)
     {
         $this->poleService = $poleService;
+        $this->lastPole=Pole::last();
     }
 
 
@@ -56,6 +59,10 @@ class PoleController extends Controller
         //
         $pole=$this->poleService->create($request->all());
         if ($pole){
+            $arr=ImageHelper::decodeBase64Image($request->input('image'));
+            $pole->addMediaFromBase64($arr['base64Image'])
+                ->usingFileName($arr['filename'])
+                ->toMediaCollection('pole');
             return response()->json([
                 'success'=>true,
                 'data'=>$pole,
@@ -125,6 +132,21 @@ class PoleController extends Controller
         return response()->json([
             "success"=>false,
             "message"=>"Erreur lors de la suppression du pôle"
+        ],Response::HTTP_NOT_FOUND);
+    }
+    public function getOnePole(){
+        $pole=$this->poleService->find($this->lastPole->id);
+        if ($pole){
+            return response()->json([
+                'success'=>true,
+                'data'=>$pole,
+                'photo'=>$pole->getFirstMediaUrl('pole'),
+                'message'=>"FrontEnd Pôle trouvé"
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "success"=>false,
+            "message"=>"FrontEnd Pôle inexistant"
         ],Response::HTTP_NOT_FOUND);
     }
 }

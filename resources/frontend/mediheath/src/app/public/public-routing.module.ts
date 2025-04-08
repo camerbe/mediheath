@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './layout/home/home.component';
 import { CentreComponent } from './layout/centre/centre.component';
+import { PoleComponent } from './layout/pole/pole.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       },
       {path:'home',component:HomeComponent},
       {path:'centre',component:CentreComponent},
+      {path:'pole',component:PoleComponent},
     ]
   },
   {path:'login',component:LoginComponent},
