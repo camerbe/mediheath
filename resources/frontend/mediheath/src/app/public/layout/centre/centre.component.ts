@@ -5,6 +5,8 @@ import { Meta, Title } from '@angular/platform-browser';
 import { Centre } from '../../../core/models/centre';
 import { Media } from '../../../core/models/media';
 import { isPlatformBrowser } from '@angular/common';
+import { SeoService } from '../../../services/seo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-centre',
@@ -26,12 +28,18 @@ export class CentreComponent implements OnInit {
     hashtags: string[] = [];
     isMobile!: boolean
     images: Media[] = []
-
+    icone="pi pi-home";
+    headerTitle=`le centre`;
     centreService:CentreService=inject(CentreService);
     metaService:Meta=inject(Meta);
     titleService:Title=inject(Title);
+    seoService:SeoService=inject(SeoService);
+    router:Router=inject(Router);
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+      this.seoService.clearMetaTagsOnServerOnly();
+      this.seoService.clearAllMetaTags();
+    }
 
 
 
@@ -47,16 +55,24 @@ export class CentreComponent implements OnInit {
           this.lastCentre=tempData["data"] as unknown as CentreDetail
           this.images=this.lastCentre.media;
           const metaObject=JSON.parse(this.lastCentre.meta as unknown as string);
-          this.metaService.addTag({name:'description',content:metaObject.description});
-          this.metaService.addTag({name:'keyword',content:metaObject.keywords});
-          this.metaService.addTag({property:'og:title',content:this.title});
-          this.titleService.setTitle(this.title)
-          this.metaService.addTag({property:'og:description',content:metaObject.description});
-          this.metaService.addTag({property:'og:image:alt',content:this.title});
-          this.metaService.addTag({property:'og:image',content:this.images[0].original_url});
-          this.metaService.addTag({property:'og:image:type',content:this.images[0].mime_type});
-          this.metaService.addTag({property:'og:site_name',content:'medihealth.be'});
-          this.metaService.addTag({property:'og:type',content:'article'});
+          this.hashtags=metaObject.hashtag.split(',');
+
+          this.seoService.setTitleAndMeta(metaObject.title,
+            [
+              {name:'description',content:metaObject.description},
+              {name:'keyword',content:metaObject.keywords},
+              {property:'og:title',content:metaObject.title},
+              {property:'og:description',content:metaObject.description},
+              {property:'og:image:alt',content:metaObject.title},
+              {property:'og:image',content:this.images[0].original_url},
+              {property:'og:image:type',content:this.images[0].mime_type},
+              {property:'og:site_name',content:'medihealth.be'},
+              {property:'og:type',content:'article'},
+              {name:'robots',content:'index, follow'}
+
+            ]
+          );
+          this.seoService.setCanonicalUrl(`${this.router.url}`);
           for (const hashtag of this.hashtags) {
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }

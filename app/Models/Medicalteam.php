@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class MedicalTeam extends Model implements HasMedia
+class Medicalteam extends Model implements HasMedia
 {
     //
     use HasUuids,InteractsWithMedia;

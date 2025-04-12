@@ -1,1 +1,41 @@
-<p>medical-team works!</p>
+<app-header [icone]="icone" [headerTitle]="headerTitle"  class="mb-3 py-3"/>
+<p-timeline
+  [value]="images"
+
+  align="alternate" styleClass="customized-timeline">
+  <ng-template pTemplate="marker" let-images >
+    <span
+        class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
+        [style]="{ 'background-color': 'purple' }">
+        {{  images.order_column}}
+    </span>
+  </ng-template>
+  <ng-template pTemplate="content" let-image let-i="index">
+    <p-card [header]="i">
+      <img
+      *ngIf="image.original_url"
+      [src]="image.original_url.replace('localhost', 'localhost:8000')"
+      [alt]="title"
+      class="shadow-2" />
+      @switch (image.order_column) {
+        @case (1) {
+          <div class="py-3 text-justify content-wrapper" [innerHTML]="lastMedicalTeam.doctor_1"></div>
+        }
+        @case (2) {
+          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastMedicalTeam.doctor_2"></div>
+        }
+        @case (3) {
+          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastMedicalTeam.doctor_3"></div>
+        }
+        @case (4) {
+          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastMedicalTeam.doctor_4"></div>
+        }
+        @case (5) {
+          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastMedicalTeam.doctor_5"></div>
+        }
+
+      }
+    </p-card>
+
+  </ng-template>
+</p-timeline>

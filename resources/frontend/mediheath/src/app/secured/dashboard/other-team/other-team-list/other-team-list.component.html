@@ -1,1 +1,35 @@
-<p>other-team-list works!</p>
+<div class="container mx-auto p-4 max-w-2xl">
+  <div class="surface-card p-4 shadow-2 border-round">
+    <p-table
+    [value]="otherTeams"
+    [paginator]="true"
+    [rows]="5"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+            <p-button [outlined]="true" icon="pi pi-plus" label="Nouveau" (onClick)="addOtherTeam()" />
+            <p-button [outlined]="true" icon="pi pi-list" label="Liste des Other Team" />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" class="flex justify-content-between">
+        <tr class="capitalize">
+          <th>Titre</th>
+          <th class="flex justify-content-end">Action</th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-otherTeam>
+        <tr>
+          <td>{{ otherTeam.titre }}</td>
+          <td class="flex justify-content-end">
+
+            <p-button icon="pi pi-trash" [rounded]="true" class="mr-2" severity="danger" size="small" (onClick)="deleteOtherTeam(otherTeam.id)" />
+            <p-button icon="pi pi-pencil" [rounded]="true"  severity="info" size="small" (onClick)="editOtherTeam(otherTeam.id)"/>
+
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+

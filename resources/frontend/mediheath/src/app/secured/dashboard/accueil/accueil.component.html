@@ -57,7 +57,27 @@
           <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
+       <!----->
+       <div class="field col-12 md:col-12">
+        <label for="title">Titre</label>
+        <input
 
+          pInputText
+          id="title"
+          formControlName="title"
+          placeholder="Titre"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': title?.invalid && (title?.dirty || title?.touched)
+          }"
+        >
+        <small *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+              class="p-error">
+          <span *ngIf="title?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="title?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+
+      </div>
       <!----->
       <div class="field col-12 md:col-6">
         <label for="open_hour">Heure d'ouverture</label>

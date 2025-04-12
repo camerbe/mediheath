@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
-use App\Models\OtherTeam;
+use App\Models\Otherteam;
 use App\Services\OtherTeamService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -21,7 +21,7 @@ class OtherTeamController extends Controller
     public function __construct(OtherTeamService $otherTeamService)
     {
         $this->otherTeamService = $otherTeamService;
-        $this->lastOtherTeam=OtherTeam::last();
+        $this->lastOtherTeam=Otherteam::last();
     }
 
 
@@ -105,6 +105,18 @@ class OtherTeamController extends Controller
         //
         $otherTeam=$this->otherTeamService->update($request->all(),$id);
         if ($otherTeam){
+            $otherTeam->clearMediaCollection('other');
+            $filteredPhotos = array_filter($request->all(), function ($value, $key) {
+                return Str::contains($key, 'image_doctor_');
+            }, ARRAY_FILTER_USE_BOTH);
+
+            foreach ($filteredPhotos as $key=>$value ){
+                $arr=ImageHelper::decodeBase64Image($value);
+                $otherTeam->addMediaFromBase64($arr['base64Image'])
+                    ->usingFileName($arr['filename'])
+                    ->toMediaCollection('other');
+
+            }
             return response()->json([
                 'success'=>true,
                 'data'=>$otherTeam,

@@ -7,6 +7,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CentreService } from '../../../services/centre.service';
 import { first } from 'rxjs';
 import { CentreDetail } from '../../../core/models/centre-detail';
+import { title } from 'node:process';
 
 @Component({
   selector: 'app-centre',
@@ -35,6 +36,7 @@ export class CentreComponent implements OnInit {
      metadescription:['',[Validators.required,Validators.maxLength(160)]],
      keywords:['',Validators.required],
      hashtag:['',Validators.required],
+     title:['',Validators.required],
      meta:[this.metaSEO,Validators.required],
     })
 
@@ -48,7 +50,8 @@ export class CentreComponent implements OnInit {
   metaSEO:MetaData={
     description: '',
     keywords: '',
-    hashtag: ''
+    hashtag: '',
+    title: '',
   };
 
   get description(){
@@ -81,18 +84,21 @@ export class CentreComponent implements OnInit {
   get meta(){
     return this.frmCentre.get("meta");
   }
+  get title(){
+    return this.frmCentre.get("title");
+  }
 
   onSubmit() {
     if(this.isAddMode){
       this.metaSEO={
         description: this.metadescription?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.title?.value || '',
       };
 
       this.frmCentre.patchValue({
-        meta:this.metaSEO,
-        description:'Le Centre'
+        meta:this.metaSEO
       })
 
       this.centreService.create(this.frmCentre.value)

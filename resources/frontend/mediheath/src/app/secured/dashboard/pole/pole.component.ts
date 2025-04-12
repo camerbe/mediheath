@@ -8,6 +8,7 @@ import { PoleService } from '../../../services/pole.service';
 import { MetaData } from '../../../core/models/meta-data';
 import { first } from 'rxjs';
 import { PoleDetail } from '../../../core/models/pole-detail';
+import { title } from 'node:process';
 
 @Component({
   selector: 'app-pole',
@@ -24,7 +25,8 @@ export class PoleComponent implements OnInit {
   metaSEO:MetaData={
     description: '',
     keywords: '',
-    hashtag: ''
+    hashtag: '',
+    title: '',
   };
 
 
@@ -45,6 +47,7 @@ export class PoleComponent implements OnInit {
      metadescription:['',Validators.required],
      keywords:['',Validators.required],
      hashtag:['',Validators.required],
+     title:['',Validators.required],
      meta:[''],
     })
 
@@ -64,13 +67,17 @@ export class PoleComponent implements OnInit {
   get image(){
     return this.frmPole.get("image");
   }
+  get title(){
+    return this.frmPole.get("title");
+  }
 
   onSubmit() {
     if(this.isAddMode){
       this.metaSEO={
         description: this.metadescription?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.title?.value || '',
       };
 
       this.frmPole.patchValue({
@@ -88,7 +95,8 @@ export class PoleComponent implements OnInit {
       this.metaSEO={
         description: this.metadescription?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.title?.value || '',
       };
       this.poleService.patch(this.id,this.frmPole.value)
         .subscribe({

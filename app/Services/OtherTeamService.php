@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\OtherTeam;
+use App\Models\Otherteam;
 use App\Repositories\IRepository;
 use Illuminate\Support\Str;
 
@@ -13,7 +13,7 @@ class OtherTeamService
     {
     }
 
-    public function create(array $data):OtherTeam {
+    public function create(array $data):Otherteam {
         $data["titre"]=Str::title($data["titre"]);
         return $this->otherTeam->create($data);
     }
@@ -26,11 +26,11 @@ class OtherTeamService
     {
         return $this->otherTeam->delete($id);
     }
-    public function find(string $id):OtherTeam
+    public function find(string $id):Otherteam
     {
         return $this->otherTeam->find($id);
     }
     public function all(){
-        return $this->otherTeam->all(['name'=>'asc']);
+        return $this->otherTeam->all(['created_at'=>'asc']);
     }
 }

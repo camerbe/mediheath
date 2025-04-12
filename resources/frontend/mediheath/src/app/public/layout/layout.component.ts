@@ -35,13 +35,33 @@ export class LayoutComponent implements OnInit {
       command: () => {}
     },
     {
-      label: "Pôle D'excellence",
+      label: "Pôles D'excellence",
       icon: 'pi pi-building-columns',
       routerLink: ['/pole'],
       routerLinkActiveOptions: { exact: true },
       command: () => {}
     },
-    { label: "Notre Équipe", icon: 'pi pi-users', command: () => {} },
+    {
+      label: "Équipe",
+       icon: 'pi pi-users', command: () => {},
+       items:[
+        {
+          label: 'Médicale',
+          icon: 'pi pi-user',
+          routerLink: ['/medical-team'],
+          routerLinkActiveOptions: { exact: true },
+          command: () => {}
+        },
+        {
+          label: 'Paramédicale',
+          icon: 'pi pi-wrench',
+          routerLink: ['/paramedical-team'],
+          routerLinkActiveOptions: { exact: true },
+          command: () => {}
+        }
+      ],
+
+    },
   ];
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 

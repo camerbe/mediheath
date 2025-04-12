@@ -1,1 +1,175 @@
-<p>other-team works!</p>
+<div class="container mx-auto p-4 max-w-2xl">
+  <div class="surface-card p-4 shadow-2 border-round">
+    <form [formGroup]="frmOtherTeam" class="p-fluid grid" (ngSubmit)="onSubmit()">
+      <div class="field col-12 md:col-4">
+        <label for="metadescription">Meta Description</label>
+        <input
+          pInputText
+          id="metadescription"
+          formControlName="metadescription"
+          placeholder="Description"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)
+          }"
+        >
+        <small *ngIf="metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)"
+              class="p-error">
+          <span *ngIf="metadescription?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="metadescription?.errors?.['maxlength']">Maximum 160 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="keywords">Mots clés</label>
+        <input
+
+          pInputText
+          id="keywords"
+          formControlName="keywords"
+          placeholder="Mots clés"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
+          }"
+        >
+        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
+              class="p-error">
+          <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-4">
+        <label for="hashtag">HashTag</label>
+        <input
+
+          pInputText
+          id="hashtag"
+          formControlName="hashtag"
+          placeholder="Hashtags"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
+          }"
+        >
+        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
+              class="p-error">
+          <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
+        </small>
+      </div>
+      <!----->
+      <div class="field col-12 md:col-12">
+        <label for="metadescription">Titre</label>
+        <input
+          pInputText
+          id="titre"
+          formControlName="titre"
+          placeholder="Titre"
+          class="w-full-64 p-inputtext"
+          [ngClass]="{
+            'p-invalid': titre?.invalid && (titre?.dirty || titre?.touched)
+          }"
+        >
+        <small *ngIf="titre?.invalid && (titre?.dirty || titre?.touched)"
+              class="p-error">
+          <span *ngIf="titre?.errors?.['required']">Ce champ est requis</span>
+          <span *ngIf="titre?.errors?.['maxlength']">Maximum 160 caractères</span>
+        </small>
+      </div>
+      <!----->
+      <div class="field col-12 md:col-6">
+        <label for="doctor_1">Doctor 1</label>
+        <p-editor
+        formControlName="doctor_1"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
+        <small *ngIf="doctor_1?.invalid && (doctor_1?.dirty || doctor_1?.touched)"
+              class="p-error">
+          <span *ngIf="doctor_1?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="image_doctor_1">Photo 1</label>
+        <p-editor
+        formControlName="image_doctor_1"
+        [style]="{ height: '200px' }"
+        >
+        </p-editor>
+        <small *ngIf="image_doctor_1?.invalid && (image_doctor_1?.dirty || image_doctor_1?.touched)"
+              class="p-error">
+          <span *ngIf="image_doctor_1?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <!-- Deuxième ligne -->
+      <div class="field col-12 md:col-6">
+        <label for="doctor_2">Doctor 2</label>
+        <p-editor
+          id="doctor_2"
+          formControlName="doctor_2"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+        <small *ngIf="doctor_2?.invalid && (doctor_2?.dirty || doctor_2?.touched)"
+              class="p-error">
+          <span *ngIf="doctor_2?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <div class="field col-12 md:col-6">
+        <label for="image_doctor_2">Photo 2</label>
+        <p-editor
+          id="image_doctor_2"
+          formControlName="image_doctor_2"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+        <small *ngIf="image_doctor_2?.invalid && (image_doctor_2?.dirty || image_doctor_2?.touched)"
+              class="p-error">
+          <span *ngIf="image_doctor_2?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+      <!---->
+      <div class="field col-12 md:col-6">
+        <label for="doctor_3">Doctor 3</label>
+        <p-editor
+          id="doctor_3"
+          formControlName="doctor_3"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+        <small *ngIf="doctor_3?.invalid && (doctor_3?.dirty || doctor_3?.touched)"
+              class="p-error">
+          <span *ngIf="doctor_3?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="image_doctor_3">Photo 3</label>
+        <p-editor
+          id="image_doctor_3"
+          formControlName="image_doctor_3"
+          [style]="{ height: '200px' }"
+        ></p-editor>
+        <small *ngIf="image_doctor_3?.invalid && (image_doctor_3?.dirty || image_doctor_3?.touched)"
+              class="p-error">
+          <span *ngIf="image_doctor_3?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <div class="field col-12 flex justify-content-end">
+        <button
+          pButton
+          pRipple
+          type="submit"
+          label="Enregistrer"
+          class="p-button-primary"
+          [disabled]="frmOtherTeam.invalid"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+

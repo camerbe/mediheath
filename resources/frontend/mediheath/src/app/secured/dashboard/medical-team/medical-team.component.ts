@@ -23,7 +23,8 @@ export class MedicalTeamComponent implements OnInit {
   metaSEO:MetaData={
     description: '',
     keywords: '',
-    hashtag: ''
+    hashtag: '',
+    title: '',
   };
 
   fb:FormBuilder=inject(FormBuilder);
@@ -125,7 +126,8 @@ export class MedicalTeamComponent implements OnInit {
       this.metaSEO={
         description: this.metadescription?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.titre?.value || '',
       };
 
       this.frmMedicalTeam.patchValue({
@@ -143,7 +145,8 @@ export class MedicalTeamComponent implements OnInit {
       this.metaSEO={
         description: this.metadescription?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.titre?.value || '',
       };
       this.frmMedicalTeam.patchValue({
         meta:this.metaSEO

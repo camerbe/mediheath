@@ -11,19 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medical_team', function (Blueprint $table) {
+        Schema::create('otherteams', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('titre')->nullable();
             $table->text('doctor_1')->nullable();
             $table->longText('image_doctor_1')->nullable();
             $table->text('doctor_2')->nullable();
             $table->longText('image_doctor_2')->nullable();
-            $table->longText('doctor_3')->nullable();
+            $table->text('doctor_3')->nullable();
             $table->longText('image_doctor_3')->nullable();
-            $table->longText('doctor_4')->nullable();
-            $table->longText('image_doctor_4')->nullable();
-            $table->longText('doctor_5')->nullable();
-            $table->longText('image_doctor_5')->nullable();
             $table->json('meta');
             $table->timestamps();
         });
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medical_team');
+        Schema::dropIfExists('other_team');
     }
 };

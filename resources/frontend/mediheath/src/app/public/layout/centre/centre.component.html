@@ -1,7 +1,11 @@
-<label class="text-gray-50 uppercase shadow-2xl"><i class="pi pi-palette text-xl"></i> Le Centre</label>
+
+<app-header
+  [icone]="icone"
+  [headerTitle]="headerTitle"
+></app-header>
 <p-splitter
 [panelSizes]="[70, 30]"
-[layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full p-4"
+[layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
 >
   <ng-template pTemplate>
     <div class="m-1 p-3">
@@ -15,15 +19,17 @@
       </video>
     </div>
   </ng-template>
+
   <ng-template pTemplate>
-    <div class="grid gap-1">
-      <div *ngFor="let image of images" class="col-6 md:col-3 p-4">
+
+    <div class="grid gap-1 m-1 p-3">
+      <div *ngFor="let image of images" class="col-6 md:col-4 py-2">
         <p-image
             class="p-3"
             src="{{image.original_url.replace('localhost', 'localhost:8000')  }}"
             [preview]="true"
             alt="Image"
-            [style]="{'width': '50px', 'height':'50px', 'object-fit': 'cover'}"
+            [style]="{'width': '100px', 'height':'71px', 'object-fit': 'cover'}"
             >
                 <ng-template pTemplate="indicator">
                     <i class="pi pi-check"></i>

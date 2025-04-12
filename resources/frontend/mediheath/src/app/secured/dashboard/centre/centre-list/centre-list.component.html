@@ -19,7 +19,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-centre>
         <tr>
-          <td>{{ centre.description }}</td>
+          <td>{{ centre.meta.title }}</td>
           <td class="flex justify-content-end">
 
             <p-button icon="pi pi-trash" [rounded]="true" class="mr-2" severity="danger" size="small" (onClick)="deleteCentre(centre.id)" />

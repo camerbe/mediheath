@@ -22,6 +22,8 @@ import { PoleComponent } from './layout/pole/pole.component';
 import { MessagesModule } from 'primeng/messages';
 import { MedicalTeamComponent } from './layout/medical-team/medical-team.component';
 import { OtherTeamComponent } from './layout/other-team/other-team.component';
+import { TimelineModule } from 'primeng/timeline';
+import { HeaderComponent } from './layout/components/header/header.component';
 
 
 @NgModule({
@@ -32,7 +34,8 @@ import { OtherTeamComponent } from './layout/other-team/other-team.component';
     CentreComponent,
     PoleComponent,
     MedicalTeamComponent,
-    OtherTeamComponent
+    OtherTeamComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { OtherTeamComponent } from './layout/other-team/other-team.component';
     TagModule,
     DividerModule,
     ImageModule,
-    MessagesModule
+    MessagesModule,
+    TimelineModule
 
   ]
 })

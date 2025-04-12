@@ -3,8 +3,10 @@ import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID } from '@a
 import { HomeDetail } from '../../../core/models/home-detail';
 import { HomeService } from '../../../services/home.service';
 import { Home } from '../../../core/models/home';
-import { Meta, Title } from '@angular/platform-browser';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SeoService } from '../../../services/seo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +30,12 @@ export class HomeComponent implements OnInit{
   homeService:HomeService=inject(HomeService);
   metaService:Meta=inject(Meta);
   titleService:Title=inject(Title);
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  sanitizer:DomSanitizer=inject(DomSanitizer);
+  seoService:SeoService=inject(SeoService);
+  router:Router=inject(Router);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.seoService.clearMetaTagsOnServerOnly();
+  }
 
 
   ngOnInit(): void {
@@ -44,26 +51,26 @@ export class HomeComponent implements OnInit{
 
           const metaObject=JSON.parse(this.lastHome.meta as unknown as string);
           this.hashtags=metaObject.hashtag.split(',');
-          //console.log(this.hashtags);
-          this.metaService.updateTag({name:'description',content:metaObject.description});
-          this.metaService.updateTag({name:'keyword',content:metaObject.keywords});
-          this.metaService.updateTag({property:'og:title',content:this.title});
-          this.titleService.setTitle(this.title)
-          this.metaService.updateTag({property:'og:description',content:metaObject.description});
-          this.metaService.updateTag({property:'og:image:alt',content:this.title});
-          this.metaService.updateTag({property:'og:image',content:tempMedia.original_url});
-          this.metaService.updateTag({property:'og:image:type',content:tempMedia.mime_type});
-          this.metaService.updateTag({property:'og:site_name',content:'medihealth.be'});
-          this.metaService.updateTag({property:'og:type',content:'article'});
+          this.seoService.setCanonicalUrl(`${this.router.url}`);
+          this.seoService.setTitleAndMeta(metaObject.title,
+            [
+              {name:'description',content:metaObject.description},
+              {name:'keyword',content:metaObject.keywords},
+              {property:'og:title',content:metaObject.title},
+              {property:'og:description',content:metaObject.description},
+              {property:'og:image:alt',content:metaObject.title},
+              {property:'og:image',content:tempMedia.original_url},
+              {property:'og:image:type',content:tempMedia.mime_type},
+              {property:'og:site_name',content:'medihealth.be'},
+              {property:'og:type',content:'article'},
+              {name:'robots',content:'index, follow'}
+            ]
+          );
+
           for (const hashtag of this.hashtags) {
 
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }
-          // this.hashtags.forEach(element => {
-          //   this.metaService.updateTag({property:'og:tag',content:element})
-          // });
-          this.metaService.updateTag({name:'robots',content:'index, follow'});
-
           this.imgUrl=tempMedia.original_url.replace("localhost", "localhost:8000");
 
         }

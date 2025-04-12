@@ -4,24 +4,26 @@ namespace App\Http\Controllers\api;
 
 use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
-use App\Models\MedicalTeam;
+use App\Models\Medicalteam;
 use App\Services\MedicalTeamService;
+use App\Services\TeamMedicalService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class MedicalTeamController extends Controller
 {
-    protected MedicalTeamService $medicalTeamService;
-    protected $lastMedicalTeam;
+    protected TeamMedicalService $teamMedicalService;
+    protected $lastTeamMedical;
+
 
     /**
-     * @param MedicalTeamService $medicalTeamService
+     * @param TeamMedicalService $teamMedicalService
      */
-    public function __construct(MedicalTeamService $medicalTeamService)
+    public function __construct(TeamMedicalService $teamMedicalService)
     {
-        $this->medicalTeamService = $medicalTeamService;
-        $this->lastMedicalTeam=MedicalTeam::last();
+        $this->teamMedicalService = $teamMedicalService;
+        $this->lastTeamMedical=Medicalteam::last();
     }
 
 
@@ -31,17 +33,17 @@ class MedicalTeamController extends Controller
     public function index()
     {
         //
-        $medicalTeams = $this->medicalTeamService->all();
-        if ($medicalTeams){
+        $Medicalteams = $this->teamMedicalService->all();
+        if ($Medicalteams){
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeams,
-                'message'=>"Liste des MedicalTeam"
+                'data'=>$Medicalteams,
+                'message'=>"Liste des Medicalteam"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"Pas de MedicalTeam trouvé"
+            "message"=>"Pas de Medicalteam trouvé"
         ],Response::HTTP_NOT_FOUND);
     }
 
@@ -51,15 +53,15 @@ class MedicalTeamController extends Controller
     public function store(Request $request)
     {
         //
-        $medicalTeam=$this->medicalTeamService->create($request->all());
-        if ($medicalTeam){
+        $Medicalteam=$this->teamMedicalService->create($request->all());
+        if ($Medicalteam){
             $filteredPhotos = array_filter($request->all(), function ($value, $key) {
                 return Str::contains($key, 'image_doctor_');
             }, ARRAY_FILTER_USE_BOTH);
 
             foreach ($filteredPhotos as $key=>$value ){
                 $arr=ImageHelper::decodeBase64Image($value);
-                $medicalTeam->addMediaFromBase64($arr['base64Image'])
+                $Medicalteam->addMediaFromBase64($arr['base64Image'])
                     ->usingFileName($arr['filename'])
                     ->toMediaCollection('medical');
 
@@ -67,13 +69,13 @@ class MedicalTeamController extends Controller
 
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeam,
-                'message'=>"MedicalTeam inséré"
+                'data'=>$Medicalteam,
+                'message'=>"Medicalteam inséré"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"Erreur lors de l'insertion de MedicalTeam"
+            "message"=>"Erreur lors de l'insertion de Medicalteam"
         ],Response::HTTP_NOT_FOUND);
     }
 
@@ -83,17 +85,17 @@ class MedicalTeamController extends Controller
     public function show(string $id)
     {
         //
-        $medicalTeam=$this->medicalTeamService->find($id);
-        if ($medicalTeam){
+        $Medicalteam=$this->teamMedicalService->find($id);
+        if ($Medicalteam){
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeam,
-                'message'=>"MedicalTeam trouvé"
+                'data'=>$Medicalteam,
+                'message'=>"Medicalteam trouvé"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"MedicalTeam non trouvé"
+            "message"=>"Medicalteam non trouvé"
         ],Response::HTTP_NOT_FOUND);
     }
 
@@ -103,17 +105,29 @@ class MedicalTeamController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $medicalTeam=$this->medicalTeamService->update($request->all(),$id);
-        if ($medicalTeam){
+        $Medicalteam=$this->teamMedicalService->update($request->all(),$id);
+        if ($Medicalteam){
+            $Medicalteam->clearMediaCollection('medical');
+            $filteredPhotos = array_filter($request->all(), function ($value, $key) {
+                return Str::contains($key, 'image_doctor_');
+            }, ARRAY_FILTER_USE_BOTH);
+
+            foreach ($filteredPhotos as $key=>$value ){
+                $arr=ImageHelper::decodeBase64Image($value);
+                $Medicalteam->addMediaFromBase64($arr['base64Image'])
+                    ->usingFileName($arr['filename'])
+                    ->toMediaCollection('medical');
+
+            }
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeam,
-                'message'=>"MedicalTeam mis à jour"
+                'data'=>$Medicalteam,
+                'message'=>"Medicalteam mis à jour"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"Erreur lors de la mise à jour du MedicalTeam"
+            "message"=>"Erreur lors de la mise à jour du Medicalteam"
         ],Response::HTTP_NOT_FOUND);
     }
 
@@ -123,32 +137,32 @@ class MedicalTeamController extends Controller
     public function destroy(string $id)
     {
         //
-        $medicalTeam=$this->medicalTeamService->delete($id);
-        if ($medicalTeam){
+        $Medicalteam=$this->teamMedicalService->delete($id);
+        if ($Medicalteam){
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeam,
-                'message'=>"MedicalTeam supprimé"
+                'data'=>$Medicalteam,
+                'message'=>"Medicalteam supprimé"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"Erreur lors de la suppression du MedicalTeam"
+            "message"=>"Erreur lors de la suppression du Medicalteam"
         ],Response::HTTP_NOT_FOUND);
     }
-    public function getOneMedicalTeam(){
-        $medicalTeam=$this->medicalTeamService->find($this->lastMedicalTeam->id);
-        if ($medicalTeam){
+    public function getOneMedicalteam(){
+        $Medicalteam=$this->teamMedicalService->find($this->lastTeamMedical->id);
+        if ($Medicalteam){
             return response()->json([
                 'success'=>true,
-                'data'=>$medicalTeam,
-                'photo'=>$medicalTeam->getFirstMediaUrl('medical'),
-                'message'=>"FrontEnd MedicalTeam trouvé"
+                'data'=>$Medicalteam,
+                'photo'=>$Medicalteam->getFirstMediaUrl('medical'),
+                'message'=>"FrontEnd Medicalteam trouvé"
             ],Response::HTTP_OK);
         }
         return response()->json([
             "success"=>false,
-            "message"=>"FrontEnd MedicalTeam inexistant"
+            "message"=>"FrontEnd Medicalteam inexistant"
         ],Response::HTTP_NOT_FOUND);
     }
 }

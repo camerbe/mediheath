@@ -59,7 +59,7 @@ export class MedicalTeamListComponent implements OnInit {
                 })
                 swalWithTailwindButtons.fire({
                   title: 'Êtes-vous sûr?',
-                  text: "De vouloir supprimer ce medicla team!",
+                  text: "De vouloir supprimer ce medical team!",
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonText: 'Supprimer',

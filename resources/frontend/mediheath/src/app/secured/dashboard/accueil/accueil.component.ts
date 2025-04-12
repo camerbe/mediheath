@@ -27,7 +27,8 @@ export class AccueilComponent implements OnInit{
   metaSEO:MetaData={
     description: '',
     keywords: '',
-    hashtag: ''
+    hashtag: '',
+    title:''
   };
 
   fb:FormBuilder=inject(FormBuilder);
@@ -49,6 +50,7 @@ export class AccueilComponent implements OnInit{
      description:['',[Validators.required,Validators.maxLength(160)]],
      keywords:['',Validators.required],
      hashtag:['',Validators.required],
+     title:['',Validators.required],
      meta:[this.metaSEO,Validators.required],
     });
   }
@@ -77,13 +79,17 @@ export class AccueilComponent implements OnInit{
   get meta(){
     return this.frmHome.get("meta");
   }
+  get title(){
+    return this.frmHome.get("title");
+  }
 
   onSubmit() {
     if(this.isAddMode){
       this.metaSEO={
         description: this.description?.value || '',
         keywords: this.keywords?.value || '',
-        hashtag: this.hashtag?.value || ''
+        hashtag: this.hashtag?.value || '',
+        title: this.title?.value || ''
       };
 
       this.frmHome.patchValue({
@@ -120,6 +126,7 @@ export class AccueilComponent implements OnInit{
             .subscribe({
               next:data=>{
                 const resData=data["data"] as HomeDetail
+                this.metaSEO=resData.meta as unknown as MetaData;
                 this.frmHome.patchValue(resData);
 
               },

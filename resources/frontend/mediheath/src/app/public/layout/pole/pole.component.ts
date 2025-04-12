@@ -3,7 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { PoleDetail } from '../../../core/models/pole-detail';
 import { PoleService } from '../../../services/pole.service';
-import { Meta, Title } from '@angular/platform-browser';
+import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pole',
@@ -21,12 +22,16 @@ export class PoleComponent implements OnInit{
   lastPole!:PoleDetail;
   imgUrl!:string;
   title:string="MediHealth Clinic : Prévention Cardiaque & Gastro-Entérologie - Diagnostic, Traitement et Médecine Générale";
+  icone="pi pi-building-columns";
+  headerTitle=`Pôles d'excellence`;
   hashtags: string[] = [];
   isMobile!: boolean
 
   PoleService:PoleService=inject(PoleService);
   metaService:Meta=inject(Meta);
   titleService:Title=inject(Title);
+  sanitizer:DomSanitizer=inject(DomSanitizer);
+  router:Router=inject(Router);
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
@@ -45,10 +50,10 @@ export class PoleComponent implements OnInit{
               //console.log(this.hashtags);
               this.metaService.addTag({name:'description',content:metaObject.description});
               this.metaService.addTag({name:'keyword',content:metaObject.keywords});
-              this.metaService.addTag({property:'og:title',content:this.title});
-              this.titleService.setTitle(this.title)
+              this.metaService.addTag({property:'og:title',content:metaObject.title});
+              this.titleService.setTitle(metaObject.title);
               this.metaService.addTag({property:'og:description',content:metaObject.description});
-              this.metaService.addTag({property:'og:image:alt',content:this.title});
+              this.metaService.addTag({property:'og:image:alt',content:metaObject.title});
               this.metaService.addTag({property:'og:image',content:tempMedia.original_url});
               this.metaService.addTag({property:'og:image:type',content:tempMedia.mime_type});
               this.metaService.addTag({property:'og:site_name',content:'medihealth.be'});

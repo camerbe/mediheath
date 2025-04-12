@@ -1,4 +1,6 @@
-<label class="text-gray-50 uppercase shadow-2xl md:py-4"><i class="pi pi-building-columns text-xl"></i> Le Pôle d'excellence</label>
+
+<app-header [icone]="icone" [headerTitle]="headerTitle"/>
+
 <p-splitter
   [panelSizes]="[40, 60]"
   [layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
@@ -9,9 +11,9 @@
         </div>
     </ng-template>
 
-    <ng-template pTemplate>
+    <ng-template pTemplate class="">
       <div  class="col flex align-items-center justify-content-center">
-        <p *ngIf="lastPole" class="text-gray-600 text-left flex-1 md:text-xl prose md:prose-lg lg:prose-xl px-2" [innerHTML]="lastPole.description"></p>
+        <div *ngIf="lastPole" class="custom-list-style md:text-xl text-gray-600 text-left flex-1 prose md:prose-lg lg:prose-xl px-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(lastPole.description)"></div>
       </div>
 
     </ng-template>
