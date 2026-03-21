@@ -7,6 +7,7 @@ import { CentreComponent } from './layout/centre/centre.component';
 import { PoleComponent } from './layout/pole/pole.component';
 import { MedicalTeamComponent } from './layout/medical-team/medical-team.component';
 import { OtherTeamComponent } from './layout/other-team/other-team.component';
+import { LocalisationComponent } from './layout/localisation/localisation.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
       {path:'pole',component:PoleComponent},
       {path:'medical-team',component:MedicalTeamComponent},
       {path:'paramedical-team',component:OtherTeamComponent},
+      {path:'localisation',component:LocalisationComponent},
     ]
   },
   {path:'login',component:LoginComponent},

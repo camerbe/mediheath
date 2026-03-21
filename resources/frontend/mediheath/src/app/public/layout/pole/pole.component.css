@@ -1,0 +1,4 @@
+::ng-deep .custom-list-style ul {
+  margin-left: 3rem;
+  list-style-type: disc;
+}

@@ -7,11 +7,15 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import { authInterceptor } from './shared/interceptors/auth.interceptor';
 import { SplitterModule } from 'primeng/splitter';
+import { ReplaceHostPipe } from './shared/pipes/replace-host.pipe';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
+
 
 
   ],

@@ -84,7 +84,9 @@ export class OtherTeamComponent implements OnInit {
   get titre(){
     return this.frmOtherTeam.get("titre");
   }
-
+  getControl(name: string) {
+    return this.frmOtherTeam.get(name);
+  }
   ngOnInit(): void {
     this.id=this.activatedRoute.snapshot.params['id'];
     this.isAddMode=!this.id;

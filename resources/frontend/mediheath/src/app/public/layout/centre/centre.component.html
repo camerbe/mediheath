@@ -1,45 +1,70 @@
+<app-header [icone]="icone" [headerTitle]="headerTitle" class="mb-3 py-3" />
+<!-- Desktop : splitter horizontal (md+) -->
+<div class="hidden md:flex w-full gap-4 p-3">
 
-<app-header
-  [icone]="icone"
-  [headerTitle]="headerTitle"
-></app-header>
-<p-splitter
-[panelSizes]="[70, 30]"
-[layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
->
-  <ng-template pTemplate>
-    <div class="m-1 p-3">
-      <video
-      autoplay="true"
+  <!-- Vidéo : 70% -->
+  <div class="w-[70%]  bg-gray-50 p-3 rounded-lg shadow-md">
+    <video
+      autoplay
       muted
       loop
-      >
-        <source src="../../../../../medihealth.webm" type="video/webm">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </ng-template>
+      class="w-full h-full object-cover rounded-lg"
+    >
+      <source src="../../../../../assets/medihealth.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-  <ng-template pTemplate>
-
-    <div class="grid gap-1 m-1 p-3">
-      <div *ngFor="let image of images" class="col-6 md:col-4 py-2">
+  <!-- Galerie : 30% -->
+  <div class="w-[30%] flex flex-wrap gap-2 content-start">
+    @for (image of images; track image.original_url) {
+      <div class="w-[calc(50%-4px)]">
         <p-image
-            class="p-3"
-            src="{{image.original_url.replace('localhost', 'localhost:8000')  }}"
-            [preview]="true"
-            alt="Image"
-            [style]="{'width': '100px', 'height':'71px', 'object-fit': 'cover'}"
-            >
-                <ng-template pTemplate="indicator">
-                    <i class="pi pi-check"></i>
-                </ng-template>
+          [src]="image.original_url | replaceHost"
+          [preview]="true"
+          alt="Image"
+          imageClass="w-full h-[71px] object-cover rounded"
+        >
+          <ng-template pTemplate="indicator">
+            <i class="pi pi-check"></i>
+          </ng-template>
         </p-image>
-
       </div>
+    }
+  </div>
 
-    </div>
+</div>
 
+<!-- Mobile : colonne (sm) -->
+<div class="flex flex-col gap-4 p-3 md:hidden">
 
-  </ng-template>
-</p-splitter>
+  <!-- Vidéo pleine largeur -->
+  <div class="w-full">
+    <video
+      autoplay
+      muted
+      loop
+      class="w-full object-cover rounded-lg"
+    >
+      <source src="../../../../../assets/medihealth.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Galerie : 2 colonnes -->
+  <div class="grid grid-cols-2 gap-2">
+    @for (image of images; track image.original_url) {
+      <p-image
+        [src]="image.original_url | replaceHost"
+        [preview]="true"
+        alt="Image"
+        imageClass="w-full h-[71px] object-cover rounded"
+      >
+        <ng-template pTemplate="indicator">
+          <i class="pi pi-check"></i>
+        </ng-template>
+      </p-image>
+    }
+  </div>
+
+</div>

@@ -1,20 +1,24 @@
-<div class="flex flex-column min-h-screen">
-  <p-menubar [model]="items" class="w-full sticky top-0 bg-white z-50 shadow-3"
+<!-- <div class="flex flex-column min-h-screen"> -->
+<div class="min-h-screen flex flex-col"><!-- </div> -->
+  <p-menubar [model]="items" class="w-full fixed top-0 bg-white z-50 shadow-3 first:"
   >
   <ng-template pTemplate="start">
-   <a routerLink="/home" class=""><img src="../../../../petit-logo-Photoroom.png" alt="Logo" class="w-5"></a>
+   <a routerLink="/home" class=""><img src="../../../../assets/petit-logo-Photoroom.webp" alt="Logo" class="w-20"></a>
   </ng-template>
-</p-menubar>
+  </p-menubar>
 
   <!-- Main -->
-  <main class="flex-1 p-5 bg-indigo-700">
-    <div  class="text-center text-2xl">
+  <main class="flex-1 p-5 lg:pt-20 bg-indigo-700 w-full">
+    <div  class="text-center text-2xl mx-auto px-4 ">
       <router-outlet/>
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="w-full bg-gray-800 text-white p-3 text-center">
-    © 2025 - Tous droits réservés
+
+      © 2025 - {{ currentDate }} - Tous droits réservés
+
+
   </footer>
 </div>

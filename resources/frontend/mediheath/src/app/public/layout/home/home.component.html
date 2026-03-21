@@ -4,13 +4,13 @@
 >
     <ng-template pTemplate>
       <div  class="col flex align-items-center justify-content-center p-3">
-          <img alt="Card" src="../../../../../logo-Photoroom.png" />
+          <img alt="Card" src="../../../../../assets/logo-Photoroom.webp" />
         </div>
     </ng-template>
 
     <ng-template pTemplate>
       <div  class="col flex align-items-center justify-content-center p-3">
-        <img [src]="imgUrl" alt="MediHealth" class="w-full max-w-full border-round shadow-md" />
+        <img [src]="imgUrl"  alt="MediHealth" class="w-full  border-round shadow-md object-fill" />
       </div>
 
     </ng-template>
@@ -18,26 +18,32 @@
 </p-splitter>
 <p-splitter
   [panelSizes]="[30, 25,45]"
-  [layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
+  [layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full m-3"
+  styleClass="w-full items-stretch"
 >
 <ng-template pTemplate>
-  <div class="bg-green-500 m-3 rounded-md  flex flex-column justify-between items-end p-3 text-white">
-    <!-- <i class="pi pi-map-marker text-green-500 self-end" style="font-size: 2.5rem"></i> -->
-    <p *ngIf="lastHome" class="text-gray-200 text-left flex-1  w-full" [innerHTML]="lastHome.location"></p>
-
+  <div class="bg-white rounded-2xl flex flex-col justify-between p-4 h-full w-full">
+      <p *ngIf="lastHome"
+         class="text-gray-700 text-left flex-1 w-full m-0"
+         [innerHTML]="lastHome.location">
+      </p>
   </div>
 </ng-template>
 <ng-template pTemplate>
-  <div class="bg-purple-500  m-3 rounded-md  flex flex-column justify-between items-end p-3">
-    <!-- <i class="pi pi-calendar-times py-2 self-end" style="font-size: 2.5rem"></i> -->
-    <p *ngIf="lastHome"  class=" text-gray-200 text-left flex-1  w-full" [innerHTML]="lastHome.open_hour"></p>
-
-  </div>
+  <div class="bg-white rounded-2xl flex flex-col justify-between p-4 h-full w-full">
+      <p *ngIf="lastHome"
+         class="text-gray-700 text-left flex-1 w-full m-0"
+         [innerHTML]="lastHome.open_hour">
+      </p>
+    </div>
 </ng-template>
 
 <ng-template pTemplate>
 
-    <p *ngIf="lastHome" class="m-3 bg-orange-500 p-3 text-gray-100 text-justify w-full prose md:prose-lg lg:prose-xl content-wrapper rounded-2xl"  [innerHTML]="sanitizer.bypassSecurityTrustHtml(lastHome.doctor_description)"></p>
+    <div *ngIf="lastHome"
+         class="bg-white text-gray-700 text-justify p-4 h-full w-full prose md:prose-lg lg:prose-xl rounded-2xl overflow-auto content-wrapper"
+         [innerHTML]="sanitizer.bypassSecurityTrustHtml(lastHome.doctor_description)">
+    </div>
 
 
   </ng-template>

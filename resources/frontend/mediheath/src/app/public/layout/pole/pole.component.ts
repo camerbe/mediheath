@@ -5,6 +5,7 @@ import { PoleDetail } from '../../../core/models/pole-detail';
 import { PoleService } from '../../../services/pole.service';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { SeoService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-pole',
@@ -30,6 +31,7 @@ export class PoleComponent implements OnInit{
   PoleService:PoleService=inject(PoleService);
   metaService:Meta=inject(Meta);
   titleService:Title=inject(Title);
+  seoService:SeoService=inject(SeoService);
   sanitizer:DomSanitizer=inject(DomSanitizer);
   router:Router=inject(Router);
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -58,6 +60,7 @@ export class PoleComponent implements OnInit{
               this.metaService.addTag({property:'og:image:type',content:tempMedia.mime_type});
               this.metaService.addTag({property:'og:site_name',content:'medihealth.be'});
               this.metaService.addTag({property:'og:type',content:'article'});
+              this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
               for (const hashtag of this.hashtags) {
 
                 this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });

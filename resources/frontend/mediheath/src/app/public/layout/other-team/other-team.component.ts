@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { OtherTeamDetail } from '../../../core/models/other-team-detail';
 import { Media } from '../../../core/models/media';
 import { OtherTeamService } from '../../../services/other-team.service';
@@ -21,6 +21,8 @@ export class OtherTeamComponent implements OnInit{
             this.isMobile = window.innerWidth < 768;
     }
   }
+  /***************SIGNAL *************/
+  readonly isBrowser = signal(false);
   lastOtherTeam!:OtherTeamDetail;
   imgUrl!:string;
   title:string="L'équipe paramédicale & administrative";
@@ -37,14 +39,16 @@ export class OtherTeamComponent implements OnInit{
   router:Router=inject(Router);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser.set(isPlatformBrowser(this.platformId));
     this.seoService.clearMetaTagsOnServerOnly();
     this.seoService.clearAllMetaTags();
   }
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)){
-      this.isMobile = window.innerWidth < 768;
-    }
+    if(!this.isBrowser()) return;
+
+    this.isMobile = window.innerWidth < 768;
+
     this.otherTeamService.getLast()
           .subscribe({
             next:data =>{
@@ -52,7 +56,12 @@ export class OtherTeamComponent implements OnInit{
               this.lastOtherTeam=tempData["data"] as unknown as OtherTeamDetail
               this.images=this.lastOtherTeam.media;
               const metaObject=JSON.parse(this.lastOtherTeam.meta as unknown as string);
-              this.hashtags=metaObject.hashtag.split(',');
+              if(metaObject.hashtag){
+                this.hashtags=metaObject.hashtag.split(',');
+              } else {
+                this.hashtags = [];
+              }
+              //this.hashtags=metaObject.hashtag.split(',');
               this.seoService.setTitleAndMeta(metaObject.title,
                 [
                   {name:'description',content:metaObject.description},
@@ -68,7 +77,7 @@ export class OtherTeamComponent implements OnInit{
 
                 ]
               );
-              this.seoService.setCanonicalUrl(`${this.router.url}`);
+              this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
               for (const hashtag of this.hashtags) {
                 this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
               }

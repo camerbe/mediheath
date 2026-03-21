@@ -1,162 +1,116 @@
 <div class="container mx-auto p-4 max-w-2xl">
-  <div class="surface-card p-4 shadow-2 border-round">
-    <form [formGroup]="frmOtherTeam" class="p-fluid grid" (ngSubmit)="onSubmit()">
-      <div class="field col-12 md:col-4">
-        <label for="metadescription">Meta Description</label>
-        <input
-          pInputText
-          id="metadescription"
-          formControlName="metadescription"
-          placeholder="Description"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)
-          }"
-        >
-        <small *ngIf="metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)"
-              class="p-error">
-          <span *ngIf="metadescription?.errors?.['required']">Ce champ est requis</span>
-          <span *ngIf="metadescription?.errors?.['maxlength']">Maximum 160 caractères</span>
-        </small>
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for="keywords">Mots clés</label>
-        <input
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <form [formGroup]="frmOtherTeam" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
-          pInputText
-          id="keywords"
-          formControlName="keywords"
-          placeholder="Mots clés"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
-          }"
-        >
-        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
-              class="p-error">
-          <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
-          <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
-        </small>
-      </div>
-      <div class="field col-12 md:col-4">
-        <label for="hashtag">HashTag</label>
-        <input
+      <!-- Ligne 1 : Meta description / Mots clés / Hashtag -->
+      <div class="flex flex-col md:flex-row gap-4">
 
-          pInputText
-          id="hashtag"
-          formControlName="hashtag"
-          placeholder="Hashtags"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
-          }"
-        >
-        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
-              class="p-error">
-          <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
-          <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
-        </small>
+        <div class="flex flex-col gap-1 w-full md:w-1/3">
+          <label for="metadescription" class="text-sm font-medium text-gray-700">Meta Description</label>
+          <input
+            pInputText
+            id="metadescription"
+            formControlName="metadescription"
+            placeholder="Description"
+            class="w-full"
+            [ngClass]="{ 'ng-invalid ng-dirty': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched) }"
+          />
+          @if (metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)) {
+            <small class="text-red-500 text-xs">
+              @if (metadescription?.errors?.['required']) { Ce champ est requis }
+              @if (metadescription?.errors?.['maxlength']) { Maximum 160 caractères }
+            </small>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1 w-full md:w-1/3">
+          <label for="keywords" class="text-sm font-medium text-gray-700">Mots clés</label>
+          <input
+            pInputText
+            id="keywords"
+            formControlName="keywords"
+            placeholder="Mots clés"
+            class="w-full"
+            [ngClass]="{ 'ng-invalid ng-dirty': keywords?.invalid && (keywords?.dirty || keywords?.touched) }"
+          />
+          @if (keywords?.invalid && (keywords?.dirty || keywords?.touched)) {
+            <small class="text-red-500 text-xs">
+              @if (keywords?.errors?.['required']) { Ce champ est requis }
+              @if (keywords?.errors?.['minlength']) { Minimum 3 caractères }
+            </small>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1 w-full md:w-1/3">
+          <label for="hashtag" class="text-sm font-medium text-gray-700">HashTag</label>
+          <input
+            pInputText
+            id="hashtag"
+            formControlName="hashtag"
+            placeholder="Hashtags"
+            class="w-full"
+            [ngClass]="{ 'ng-invalid ng-dirty': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched) }"
+          />
+          @if (hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)) {
+            <small class="text-red-500 text-xs">
+              @if (hashtag?.errors?.['required']) { Ce champ est requis }
+              @if (hashtag?.errors?.['minlength']) { Minimum 3 caractères }
+            </small>
+          }
+        </div>
+
       </div>
-      <!----->
-      <div class="field col-12 md:col-12">
-        <label for="metadescription">Titre</label>
+
+      <!-- Ligne 2 : Titre (pleine largeur) -->
+      <div class="flex flex-col gap-1 w-full">
+        <label for="titre" class="text-sm font-medium text-gray-700">Titre</label>
         <input
           pInputText
           id="titre"
           formControlName="titre"
           placeholder="Titre"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': titre?.invalid && (titre?.dirty || titre?.touched)
-          }"
-        >
-        <small *ngIf="titre?.invalid && (titre?.dirty || titre?.touched)"
-              class="p-error">
-          <span *ngIf="titre?.errors?.['required']">Ce champ est requis</span>
-          <span *ngIf="titre?.errors?.['maxlength']">Maximum 160 caractères</span>
-        </small>
-      </div>
-      <!----->
-      <div class="field col-12 md:col-6">
-        <label for="doctor_1">Doctor 1</label>
-        <p-editor
-        formControlName="doctor_1"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
-        <small *ngIf="doctor_1?.invalid && (doctor_1?.dirty || doctor_1?.touched)"
-              class="p-error">
-          <span *ngIf="doctor_1?.errors?.['required']">Ce champ est requis</span>
-        </small>
+          class="w-full"
+          [ngClass]="{ 'ng-invalid ng-dirty': titre?.invalid && (titre?.dirty || titre?.touched) }"
+        />
+        @if (titre?.invalid && (titre?.dirty || titre?.touched)) {
+          <small class="text-red-500 text-xs">
+            @if (titre?.errors?.['required']) { Ce champ est requis }
+            @if (titre?.errors?.['maxlength']) { Maximum 160 caractères }
+          </small>
+        }
       </div>
 
-      <div class="field col-12 md:col-6">
-        <label for="image_doctor_1">Photo 1</label>
-        <p-editor
-        formControlName="image_doctor_1"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
-        <small *ngIf="image_doctor_1?.invalid && (image_doctor_1?.dirty || image_doctor_1?.touched)"
-              class="p-error">
-          <span *ngIf="image_doctor_1?.errors?.['required']">Ce champ est requis</span>
-        </small>
-      </div>
+      <!-- Doctors 1 à 3 : doctor + photo sur la même ligne -->
+      @for (n of [1, 2, 3]; track n) {
+        <div class="flex flex-col md:flex-row gap-4">
 
-      <!-- Deuxième ligne -->
-      <div class="field col-12 md:col-6">
-        <label for="doctor_2">Doctor 2</label>
-        <p-editor
-          id="doctor_2"
-          formControlName="doctor_2"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="doctor_2?.invalid && (doctor_2?.dirty || doctor_2?.touched)"
-              class="p-error">
-          <span *ngIf="doctor_2?.errors?.['required']">Ce champ est requis</span>
-        </small>
-      </div>
+          <div class="flex flex-col gap-1 w-full md:w-1/2">
+            <label class="text-sm font-medium text-gray-700">Doctor {{ n }}</label>
+            <p-editor
+              [formControlName]="'doctor_' + n"
+              [style]="{ height: '200px' }"
+            ></p-editor>
+            @if (getControl('doctor_' + n)?.invalid && (getControl('doctor_' + n)?.dirty || getControl('doctor_' + n)?.touched)) {
+              <small class="text-red-500 text-xs">Ce champ est requis</small>
+            }
+          </div>
 
-      <div class="field col-12 md:col-6">
-        <label for="image_doctor_2">Photo 2</label>
-        <p-editor
-          id="image_doctor_2"
-          formControlName="image_doctor_2"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="image_doctor_2?.invalid && (image_doctor_2?.dirty || image_doctor_2?.touched)"
-              class="p-error">
-          <span *ngIf="image_doctor_2?.errors?.['required']">Ce champ est requis</span>
-        </small>
-      </div>
-      <!---->
-      <div class="field col-12 md:col-6">
-        <label for="doctor_3">Doctor 3</label>
-        <p-editor
-          id="doctor_3"
-          formControlName="doctor_3"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="doctor_3?.invalid && (doctor_3?.dirty || doctor_3?.touched)"
-              class="p-error">
-          <span *ngIf="doctor_3?.errors?.['required']">Ce champ est requis</span>
-        </small>
-      </div>
-      <div class="field col-12 md:col-6">
-        <label for="image_doctor_3">Photo 3</label>
-        <p-editor
-          id="image_doctor_3"
-          formControlName="image_doctor_3"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="image_doctor_3?.invalid && (image_doctor_3?.dirty || image_doctor_3?.touched)"
-              class="p-error">
-          <span *ngIf="image_doctor_3?.errors?.['required']">Ce champ est requis</span>
-        </small>
-      </div>
+          <div class="flex flex-col gap-1 w-full md:w-1/2">
+            <label class="text-sm font-medium text-gray-700">Photo {{ n }}</label>
+            <p-editor
+              [formControlName]="'image_doctor_' + n"
+              [style]="{ height: '200px' }"
+            ></p-editor>
+            @if (getControl('image_doctor_' + n)?.invalid && (getControl('image_doctor_' + n)?.dirty || getControl('image_doctor_' + n)?.touched)) {
+              <small class="text-red-500 text-xs">Ce champ est requis</small>
+            }
+          </div>
 
-      <!-- Bouton de soumission -->
-      <div class="field col-12 flex justify-content-end">
+        </div>
+      }
+
+      <!-- Bouton submit -->
+      <div class="flex justify-end pt-2">
         <button
           pButton
           pRipple
@@ -166,10 +120,7 @@
           [disabled]="frmOtherTeam.invalid"
         ></button>
       </div>
+
     </form>
   </div>
 </div>
-
-
-
-

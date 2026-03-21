@@ -1,162 +1,149 @@
 <div class="container mx-auto p-4 max-w-2xl">
-  <div class="surface-card p-4 shadow-2 border-round">
-    <form [formGroup]="frmCentre" class="p-fluid grid" (ngSubmit)="onSubmit()">
-      <div class="field col-12 md:col-4">
+  <div class="bg-white p-4 shadow-md rounded">
+    <form [formGroup]="frmCentre" class="grid grid-cols-12 gap-4" (ngSubmit)="onSubmit()">
+
+      <!-- Meta Description -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="metadescription">Meta Description</label>
         <input
           pInputText
           id="metadescription"
           formControlName="metadescription"
           placeholder="Description"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)
-          }"
-        >
-        <small *ngIf="metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': metadescription?.invalid && (metadescription?.dirty || metadescription?.touched) }"
+        />
+        <small *ngIf="metadescription?.invalid && (metadescription?.dirty || metadescription?.touched)" class="text-red-500 text-sm">
           <span *ngIf="metadescription?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="metadescription?.errors?.['maxlength']">Maximum 160 caractères</span>
         </small>
       </div>
-      <div class="field col-12 md:col-4">
+
+      <!-- Mots clés -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="keywords">Mots clés</label>
         <input
-
           pInputText
           id="keywords"
           formControlName="keywords"
           placeholder="Mots clés"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
-          }"
-        >
-        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': keywords?.invalid && (keywords?.dirty || keywords?.touched) }"
+        />
+        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)" class="text-red-500 text-sm">
           <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
-      <div class="field col-12 md:col-4">
+
+      <!-- HashTag -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="hashtag">HashTag</label>
         <input
-
           pInputText
           id="hashtag"
           formControlName="hashtag"
           placeholder="Hashtags"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
-          }"
-        >
-        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched) }"
+        />
+        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)" class="text-red-500 text-sm">
           <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
-      <!--  -->
-      <div class="field col-12 md:col-12">
+
+      <!-- Titre -->
+      <div class="col-span-12 flex flex-col gap-1">
         <label for="title">Titre</label>
         <input
-
           pInputText
           id="title"
           formControlName="title"
           placeholder="title"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': title?.invalid && (title?.dirty || title?.touched)
-          }"
-        >
-        <small *ngIf="title?.invalid && (hashtag?.dirty || title?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': title?.invalid && (title?.dirty || title?.touched) }"
+        />
+        <small *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-red-500 text-sm">
           <span *ngIf="title?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="title?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
-      <!----->
-      <div class="field col-12 md:col-6">
+
+      <!-- Photo 1 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="photo_1">Photo 1</label>
-        <p-editor
-        formControlName="photo_1"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
-        <small *ngIf="photo_1?.invalid && (photo_1?.dirty || photo_1?.touched)"
-              class="p-error">
+        <p-editor formControlName="photo_1" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_1?.invalid && (photo_1?.dirty || photo_1?.touched)" class="text-red-500 text-sm">
           <span *ngIf="photo_1?.errors?.['required']">Ce champ est requis</span>
         </small>
       </div>
 
-      <div class="field col-12 md:col-6">
+      <!-- Photo 2 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="photo_2">Photo 2</label>
-        <p-editor
-        formControlName="photo_2"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
-        <small *ngIf="photo_2?.invalid && (photo_2?.dirty || photo_2?.touched)"
-              class="p-error">
+        <p-editor formControlName="photo_2" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_2?.invalid && (photo_2?.dirty || photo_2?.touched)" class="text-red-500 text-sm">
           <span *ngIf="photo_2?.errors?.['required']">Ce champ est requis</span>
         </small>
       </div>
 
-      <!-- Deuxième ligne -->
-      <div class="field col-12 md:col-6">
+      <!-- Photo 3 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="photo_3">Photo 3</label>
-        <p-editor
-          id="photo_3"
-          formControlName="photo_3"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="photo_3?.invalid && (photo_3?.dirty || photo_3?.touched)"
-              class="p-error">
+        <p-editor id="photo_3" formControlName="photo_3" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_3?.invalid && (photo_3?.dirty || photo_3?.touched)" class="text-red-500 text-sm">
           <span *ngIf="photo_3?.errors?.['required']">Ce champ est requis</span>
         </small>
       </div>
 
-      <div class="field col-12 md:col-6">
+      <!-- Photo 4 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="photo_4">Photo 4</label>
-        <p-editor
-          id="photo_4"
-          formControlName="photo_4"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="photo_4?.invalid && (photo_4?.dirty || photo_4?.touched)"
-              class="p-error">
+        <p-editor id="photo_4" formControlName="photo_4" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_4?.invalid && (photo_4?.dirty || photo_4?.touched)" class="text-red-500 text-sm">
           <span *ngIf="photo_4?.errors?.['required']">Ce champ est requis</span>
         </small>
       </div>
-      <div class="field col-12">
+
+      <!-- Photo 5 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="photo_5">Photo 5</label>
-        <p-editor
-          id="photo_5"
-          formControlName="photo_5"
-          [style]="{ height: '200px' }"
-        ></p-editor>
-        <small *ngIf="photo_5?.invalid && (photo_5?.dirty || photo_5?.touched)"
-              class="p-error">
+        <p-editor id="photo_5" formControlName="photo_5" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_5?.invalid && (photo_5?.dirty || photo_5?.touched)" class="text-red-500 text-sm">
           <span *ngIf="photo_5?.errors?.['required']">Ce champ est requis</span>
         </small>
       </div>
-      <!-- Bouton de soumission -->
-      <div class="field col-12 flex justify-content-end">
-        <button
-          pButton
-          pRipple
-          type="submit"
-          label="Enregistrer"
-          class="p-button-primary"
-
-        ></button>
+      <!-- Photo 6 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
+        <label for="photo_6">Photo 6</label>
+        <p-editor id="photo_6" formControlName="photo_6" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_6?.invalid && (photo_6?.dirty || photo_6?.touched)" class="text-red-500 text-sm">
+          <span *ngIf="photo_6?.errors?.['required']">Ce champ est requis</span>
+        </small>
       </div>
+      <!-- Photo 7 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
+        <label for="photo_7">Photo 7</label>
+        <p-editor id="photo_7" formControlName="photo_7" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_7?.invalid && (photo_7?.dirty || photo_7?.touched)" class="text-red-500 text-sm">
+          <span *ngIf="photo_7?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+      <!-- Photo 8 -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
+        <label for="photo_8">Photo 8</label>
+        <p-editor id="photo_8" formControlName="photo_8" [style]="{ height: '200px' }"></p-editor>
+        <small *ngIf="photo_8?.invalid && (photo_8?.dirty || photo_8?.touched)" class="text-red-500 text-sm">
+          <span *ngIf="photo_8?.errors?.['required']">Ce champ est requis</span>
+        </small>
+      </div>
+
+      <!-- Bouton -->
+      <div class="col-span-12 flex justify-center">
+        <button pButton pRipple type="submit" label="Enregistrer" class="p-button-primary bg-blue-500 text-gray-50 p-3"></button>
+      </div>
+
     </form>
   </div>
 </div>
-
-
-
-

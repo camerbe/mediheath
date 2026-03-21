@@ -2,22 +2,25 @@
 <app-header [icone]="icone" [headerTitle]="headerTitle"/>
 
 <p-splitter
-  [panelSizes]="[40, 60]"
-  [layout]="isMobile ? 'vertical' : 'horizontal'" class="w-full"
+  [panelSizes]="[60, 40]"
+  [layout]="isMobile ? 'vertical' : 'horizontal'"
+  class="w-full"
 >
-    <ng-template pTemplate>
-      <div  class="col flex align-items-center justify-content-center">
-          <img alt="Card" [src]="imgUrl" />
-        </div>
-    </ng-template>
-
-    <ng-template pTemplate class="">
-      <div  class="col flex align-items-center justify-content-center">
-        <div *ngIf="lastPole" class="custom-list-style md:text-xl text-gray-600 text-left flex-1 prose md:prose-lg lg:prose-xl px-2" [innerHTML]="sanitizer.bypassSecurityTrustHtml(lastPole.description)"></div>
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center flex-1">
+      <div
+        *ngIf="lastPole"
+        class="custom-list-style block md:text-xl text-sm text-gray-600 text-left py-3 w-full"
+        [innerHTML]="sanitizer.bypassSecurityTrustHtml(lastPole.description)">
       </div>
+    </div>
+  </ng-template>
 
-    </ng-template>
-
+  <ng-template pTemplate>
+    <div class="col flex align-items-center justify-content-center">
+      <img alt="Card" [src]="imgUrl" />
+    </div>
+  </ng-template>
 </p-splitter>
 
 

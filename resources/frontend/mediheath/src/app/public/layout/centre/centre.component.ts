@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CentreDetail } from '../../../core/models/centre-detail';
 import { CentreService } from '../../../services/centre.service';
 import { Meta, Title } from '@angular/platform-browser';
@@ -21,6 +21,8 @@ export class CentreComponent implements OnInit {
         this.isMobile = window.innerWidth < 768;
       }
     };
+    /***************SIGNAL *************/
+    readonly isBrowser = signal(false);
 
     lastCentre!:CentreDetail;
     imgUrl!:string;
@@ -39,21 +41,23 @@ export class CentreComponent implements OnInit {
     constructor(@Inject(PLATFORM_ID) private platformId: Object) {
       this.seoService.clearMetaTagsOnServerOnly();
       this.seoService.clearAllMetaTags();
+      this.isBrowser.set(isPlatformBrowser(this.platformId));
     }
 
 
 
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)){
-      this.isMobile = window.innerWidth < 768;
-    }
+    if(!this.isBrowser()) return;
+    this.isMobile = window.innerWidth < 768;
+
     this.centreService.getLast()
       .subscribe({
         next:data =>{
           const tempData=data as unknown as Centre;
           this.lastCentre=tempData["data"] as unknown as CentreDetail
           this.images=this.lastCentre.media;
+          //console.log(this.images);
           const metaObject=JSON.parse(this.lastCentre.meta as unknown as string);
           this.hashtags=metaObject.hashtag.split(',');
 
@@ -72,7 +76,7 @@ export class CentreComponent implements OnInit {
 
             ]
           );
-          this.seoService.setCanonicalUrl(`${this.router.url}`);
+          this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
           for (const hashtag of this.hashtags) {
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }

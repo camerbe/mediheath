@@ -1,36 +1,50 @@
 <app-header [icone]="icone" [headerTitle]="headerTitle"  class="mb-3 py-3"/>
-<p-timeline
-  [value]="images"
+<section class="px-2 sm:px-4 md:px-8 py-4">
 
-  align="alternate" styleClass="customized-timeline">
-  <ng-template pTemplate="marker" let-images >
-    <span
-        class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1"
-        [style]="{ 'background-color': 'purple' }">
-        {{  images.order_column}}
-    </span>
-  </ng-template>
-  <ng-template pTemplate="content" let-image let-i="index">
-    <p-card [header]="i">
-      <img
-      *ngIf="image.original_url"
-      [src]="image.original_url.replace('localhost', 'localhost:8000')"
-      [alt]="title"
-      class="shadow-2" />
-      @switch (image.order_column) {
-        @case (1) {
-          <div class="py-3 text-justify content-wrapper" [innerHTML]="lastOtherTeam.doctor_1"></div>
-        }
-        @case (2) {
-          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastOtherTeam.doctor_2"></div>
-        }
-        @case (3) {
-          <div class="py-3 text-justify content-wrapper"  [innerHTML]="lastOtherTeam.doctor_3"></div>
-        }
+  <!-- Grille : 1 col mobile, 3 col desktop -->
+  <div class="flex flex-col md:flex-row md:flex-wrap gap-6">
+
+    @for (image of images; track image.order_column) {
+
+      <!-- Item : pleine largeur mobile, tiers desktop -->
+      <div class="w-full md:w-[calc(33.333%-16px)]">
+
+        <p-card styleClass="shadow-md overflow-hidden rounded-lg h-full">
+
+          <!-- Header : Marker -->
+          <ng-template pTemplate="header">
 
 
-      }
-    </p-card>
+            <!-- Image -->
+            @if (image.original_url) {
+              <img
+                [src]="image.original_url | replaceHost"
+                [alt]="title"
+                class="w-full object-cover mt-0 shadow-md" />
+            }
+          </ng-template>
 
-  </ng-template>
-</p-timeline>
+          <!-- Contenu dynamique -->
+          <div class="py-2 text-justify leading-relaxed">
+            @switch (image.order_column) {
+              @case (1) {
+                <div [innerHTML]="lastOtherTeam.doctor_1"></div>
+              }
+              @case (2) {
+                <div [innerHTML]="lastOtherTeam.doctor_2"></div>
+              }
+              @case (3) {
+                <div [innerHTML]="lastOtherTeam.doctor_3"></div>
+              }
+            }
+          </div>
+
+        </p-card>
+
+      </div>
+
+    }
+
+  </div>
+
+</section>

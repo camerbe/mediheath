@@ -103,6 +103,9 @@ export class MedicalTeamComponent implements OnInit {
     return this.frmMedicalTeam.get("titre");
   }
 
+  getControl(name: string) {
+    return this.frmMedicalTeam.get(name);
+  }
   ngOnInit(): void {
     this.id=this.activatedRoute.snapshot.params['id'];
     this.isAddMode=!this.id;

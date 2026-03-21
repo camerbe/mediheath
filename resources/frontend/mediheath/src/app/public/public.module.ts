@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -24,6 +24,9 @@ import { MedicalTeamComponent } from './layout/medical-team/medical-team.compone
 import { OtherTeamComponent } from './layout/other-team/other-team.component';
 import { TimelineModule } from 'primeng/timeline';
 import { HeaderComponent } from './layout/components/header/header.component';
+import { OrganizationChartModule } from 'primeng/organizationchart';
+import { ReplaceHostPipe } from '../shared/pipes/replace-host.pipe';
+import { LocalisationComponent } from './layout/localisation/localisation.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { HeaderComponent } from './layout/components/header/header.component';
     PoleComponent,
     MedicalTeamComponent,
     OtherTeamComponent,
-    HeaderComponent
+    HeaderComponent,
+    ReplaceHostPipe,
+    LocalisationComponent,
+
   ],
   imports: [
     CommonModule,
@@ -51,7 +57,9 @@ import { HeaderComponent } from './layout/components/header/header.component';
     DividerModule,
     ImageModule,
     MessagesModule,
-    TimelineModule
+    TimelineModule,
+    OrganizationChartModule,
+    NgOptimizedImage
 
   ]
 })

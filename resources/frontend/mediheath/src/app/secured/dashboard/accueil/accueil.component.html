@@ -1,124 +1,101 @@
 <div class="container mx-auto p-4 max-w-2xl">
-  <div class="surface-card p-4 shadow-2 border-round">
-    <form [formGroup]="frmHome" class="p-fluid grid" (ngSubmit)="onSubmit()">
-      <div class="field col-12 md:col-4">
+  <div class="bg-white p-4 shadow-md rounded">
+    <form [formGroup]="frmHome" class="grid grid-cols-12 gap-4" (ngSubmit)="onSubmit()">
+
+      <!-- Description -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="description">Description</label>
         <input
           pInputText
           id="description"
           formControlName="description"
           placeholder="Description"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': description?.invalid && (description?.dirty || description?.touched)
-          }"
-        >
-        <small *ngIf="description?.invalid && (description?.dirty || description?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': description?.invalid && (description?.dirty || description?.touched) }"
+        />
+        <small *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="text-red-500 text-sm">
           <span *ngIf="description?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="description?.errors?.['maxlength']">Maximum 160 caractères</span>
         </small>
       </div>
-      <div class="field col-12 md:col-4">
+
+      <!-- Mots clés -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="keywords">Mots clés</label>
         <input
-
           pInputText
           id="keywords"
           formControlName="keywords"
           placeholder="Mots clés"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': keywords?.invalid && (keywords?.dirty || keywords?.touched)
-          }"
-        >
-        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': keywords?.invalid && (keywords?.dirty || keywords?.touched) }"
+        />
+        <small *ngIf="keywords?.invalid && (keywords?.dirty || keywords?.touched)" class="text-red-500 text-sm">
           <span *ngIf="keywords?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="keywords?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
-      <div class="field col-12 md:col-4">
+
+      <!-- HashTag -->
+      <div class="col-span-12 md:col-span-4 flex flex-col gap-1">
         <label for="hashtag">HashTag</label>
         <input
-
           pInputText
           id="hashtag"
           formControlName="hashtag"
           placeholder="Hashtags"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)
-          }"
-        >
-        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': hashtag?.invalid && (hashtag?.dirty || hashtag?.touched) }"
+        />
+        <small *ngIf="hashtag?.invalid && (hashtag?.dirty || hashtag?.touched)" class="text-red-500 text-sm">
           <span *ngIf="hashtag?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="hashtag?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
       </div>
-       <!----->
-       <div class="field col-12 md:col-12">
+
+      <!-- Titre -->
+      <div class="col-span-12 flex flex-col gap-1">
         <label for="title">Titre</label>
         <input
-
           pInputText
           id="title"
           formControlName="title"
           placeholder="Titre"
-          class="w-full-64 p-inputtext"
-          [ngClass]="{
-            'p-invalid': title?.invalid && (title?.dirty || title?.touched)
-          }"
-        >
-        <small *ngIf="title?.invalid && (title?.dirty || title?.touched)"
-              class="p-error">
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          [ngClass]="{ 'border-red-500': title?.invalid && (title?.dirty || title?.touched) }"
+        />
+        <small *ngIf="title?.invalid && (title?.dirty || title?.touched)" class="text-red-500 text-sm">
           <span *ngIf="title?.errors?.['required']">Ce champ est requis</span>
           <span *ngIf="title?.errors?.['minlength']">Minimum 3 caractères</span>
         </small>
-
       </div>
-      <!----->
-      <div class="field col-12 md:col-6">
+
+      <!-- Heure d'ouverture -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="open_hour">Heure d'ouverture</label>
-        <p-editor
-        formControlName="open_hour"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
-
+        <p-editor formControlName="open_hour" [style]="{ height: '200px' }"></p-editor>
       </div>
 
-      <div class="field col-12 md:col-6">
+      <!-- Image -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="doctor_image">Image</label>
-        <p-editor
-        formControlName="doctor_image"
-        [style]="{ height: '200px' }"
-        >
-        </p-editor>
+        <p-editor formControlName="doctor_image" [style]="{ height: '200px' }"></p-editor>
       </div>
 
-      <!-- Deuxième ligne -->
-      <div class="field col-12 md:col-6">
+      <!-- Location -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="location">Location</label>
-        <p-editor
-          id="location"
-          formControlName="location"
-          [style]="{ height: '200px' }"
-        ></p-editor>
+        <p-editor id="location" formControlName="location" [style]="{ height: '200px' }"></p-editor>
       </div>
 
-      <div class="field col-12 md:col-6">
+      <!-- Description médecin -->
+      <div class="col-span-12 md:col-span-6 flex flex-col gap-1">
         <label for="doctor_description">Description</label>
-        <p-editor
-          id="doctor_description"
-          formControlName="doctor_description"
-          [style]="{ height: '200px' }"
-        ></p-editor>
+        <p-editor id="doctor_description" formControlName="doctor_description" [style]="{ height: '200px' }"></p-editor>
       </div>
 
-      <!-- Bouton de soumission -->
-      <div class="field col-12 flex justify-content-end">
+      <!-- Bouton -->
+      <div class="col-span-12 flex justify-end">
         <button
           pButton
           pRipple
@@ -128,10 +105,7 @@
           [disabled]="frmHome.invalid"
         ></button>
       </div>
+
     </form>
   </div>
 </div>
-
-
-
-

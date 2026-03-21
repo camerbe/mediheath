@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, Inject, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { HomeDetail } from '../../../core/models/home-detail';
 import { HomeService } from '../../../services/home.service';
 import { Home } from '../../../core/models/home';
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit{
       this.isMobile = window.innerWidth < 768;
     }
   }
+  /***************SIGNAL *************/
+  readonly isBrowser = signal(false);
 
   lastHome!:HomeDetail;
   imgUrl!:string;
@@ -34,14 +36,15 @@ export class HomeComponent implements OnInit{
   seoService:SeoService=inject(SeoService);
   router:Router=inject(Router);
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser.set(isPlatformBrowser(this.platformId));
     this.seoService.clearMetaTagsOnServerOnly();
   }
 
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)){
-      this.isMobile = window.innerWidth < 768;
-    }
+    if(!this.isBrowser()) return;
+    this.isMobile = window.innerWidth < 768;
+
     this.homeService.getLast()
       .subscribe({
         next:data =>{
@@ -51,7 +54,7 @@ export class HomeComponent implements OnInit{
 
           const metaObject=JSON.parse(this.lastHome.meta as unknown as string);
           this.hashtags=metaObject.hashtag.split(',');
-          this.seoService.setCanonicalUrl(`${this.router.url}`);
+          this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
           this.seoService.setTitleAndMeta(metaObject.title,
             [
               {name:'description',content:metaObject.description},

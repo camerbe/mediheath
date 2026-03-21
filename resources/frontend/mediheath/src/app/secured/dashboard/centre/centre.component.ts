@@ -33,6 +33,9 @@ export class CentreComponent implements OnInit {
      photo_3:['',Validators.required],
      photo_4:['',Validators.required],
      photo_5:['',Validators.required],
+     photo_6:['',Validators.required],
+     photo_7:['',Validators.required],
+     photo_8:['',Validators.required],
      metadescription:['',[Validators.required,Validators.maxLength(160)]],
      keywords:['',Validators.required],
      hashtag:['',Validators.required],
@@ -71,6 +74,15 @@ export class CentreComponent implements OnInit {
   }
   get photo_5(){
     return this.frmCentre.get("photo_5");
+  }
+  get photo_6(){
+    return this.frmCentre.get("photo_6");
+  }
+  get photo_7(){
+    return this.frmCentre.get("photo_7");
+  }
+  get photo_8(){
+    return this.frmCentre.get("photo_8");
   }
   get metadescription(){
     return this.frmCentre.get("metadescription");

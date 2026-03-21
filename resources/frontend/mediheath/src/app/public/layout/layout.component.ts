@@ -16,11 +16,12 @@ export class LayoutComponent implements OnInit {
     }
   }
 
+  currentDate= new Date().getFullYear();
   isMobile!: boolean
   useSplitter:boolean=false;
   items: MenuItem[] = [
     {
-      label: 'Accueil',
+      label: '<b>Accueil</b>',
       icon: 'pi pi-home',
       routerLink: ['/home'],
       routerLinkActive: "text-rose-500 hover:text-rose-500",
@@ -28,21 +29,21 @@ export class LayoutComponent implements OnInit {
       command: () => {}
     },
     {
-      label: 'Le Centre',
+      label: '<b>Le Centre</b>',
       icon: 'pi pi-palette',
       routerLink: ['/centre'],
       routerLinkActiveOptions: { exact: true },
       command: () => {}
     },
     {
-      label: "Pôles D'excellence",
+      label: "<b>Pôles D'excellence</b>",
       icon: 'pi pi-building-columns',
       routerLink: ['/pole'],
       routerLinkActiveOptions: { exact: true },
       command: () => {}
     },
     {
-      label: "Équipe",
+      label: "<b>Équipe</b>",
        icon: 'pi pi-users', command: () => {},
        items:[
         {
@@ -62,6 +63,13 @@ export class LayoutComponent implements OnInit {
       ],
 
     },
+    {
+      label: "<b>Localisation</b>",
+      icon: 'pi pi-globe',
+      routerLink: ['/localisation'],
+      routerLinkActiveOptions: { exact: true },
+      command: () => {}
+    }
   ];
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
