@@ -20,6 +20,9 @@ return new class extends Migration
             $table->longText('photo_3')->nullable();
             $table->longText('photo_4')->nullable();
             $table->longText('photo_5')->nullable();
+            $table->longText('photo_6')->nullable();
+            $table->longText('photo_7')->nullable();
+            $table->longText('photo_8')->nullable();
             $table->json('meta');
             $table->timestamps();
         });

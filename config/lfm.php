@@ -56,6 +56,7 @@ return [
             'valid_mime'   => [
                 'image/jpeg',
                 'image/pjpeg',
+                'image/webp',
                 'image/png',
                 'image/gif',
                 'application/pdf',
@@ -72,6 +73,7 @@ return [
             'valid_mime'   => [
                 'image/jpeg',
                 'image/pjpeg',
+                'image/webp',
                 'image/png',
                 'image/gif',
             ],
@@ -137,6 +139,7 @@ return [
     'raster_mimetypes'         => [
         'image/jpeg',
         'image/pjpeg',
+        'image/webp',
         'image/png',
     ],
 
@@ -160,6 +163,7 @@ return [
         'gif'  => 'GIF Image',
         'jpg'  => 'JPEG Image',
         'jpeg' => 'JPEG Image',
+        'webp' => 'webp',
         'png'  => 'PNG Image',
         'ppt'  => 'Microsoft PowerPoint',
         'pptx' => 'Microsoft PowerPoint',

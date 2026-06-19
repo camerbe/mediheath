@@ -14,19 +14,33 @@ class ImageHelper
         preg_match('/<img[^>]+src=["\'](.*?)["\']/', $html, $matches);
         return isset($matches[1]) ? $matches[1] : null;
     }
-    public static function decodeBase64Image($html){
-        $imageBase64=ImageHelper::extractImgSrc($html);
-        //dd($imageBase64);
+    public static function decodeBase64Image($html): array
+    {
+        $imageBase64 = ImageHelper::extractImgSrc($html);
+
         if (!preg_match('/^data:image\/(\w+);base64,/', $imageBase64, $type)) {
-            return 'Invalid image format';
+            throw new \InvalidArgumentException('Invalid image format: ' . $imageBase64);
         }
-        $imageData = substr($html, strpos($imageBase64, ',') + 1);
+
+        // ✅ Use $imageBase64, not $html
+        $imageData = substr($imageBase64, strpos($imageBase64, ',') + 1);
         $imageData = base64_decode($imageData);
+
         if ($imageData === false) {
-            return 'Base64 decoding failed';
+            throw new \RuntimeException('Base64 decoding failed');
         }
-        $extension = $type[1]; // Get extension (e.g., jpg, png)
-        $fileName = 'image_' . time() . '.' . $extension;
-        return ['filename'=>$fileName,'base64Image'=>$imageBase64];
+
+        $extension = strtolower($type[1]); // jpg, png, webp...
+        $fileName  = 'image_' . time() . '.' . $extension;
+
+        return [
+            'filename'    => $fileName,
+            'base64Image' => $imageBase64,
+        ];
     }
+
+
+
+
+
 }

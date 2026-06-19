@@ -44,4 +44,15 @@ class Medicalteam extends Model implements HasMedia
     public static function last(){
         return static::latest()->first();
     }
+    public function getImagesAttribute()
+    {
+        return $this->getMedia('medical')->map(function ($media) {
+            return [
+                'original' => $media->getUrl(),
+                'thumb' => $media->getUrl('thumb'), // Conversion
+                'properties' => $media->custom_properties,
+                'width' => $media->getCustomProperty('width'),
+            ];
+        });
+    }
 }

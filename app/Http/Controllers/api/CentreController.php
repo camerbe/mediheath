@@ -102,19 +102,45 @@ class CentreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $centre=$this->centreService->update($request->all(),$id);
-        if ($centre){
-            return response()->json([
-                'success'=>true,
-                'data'=>$centre,
-                'message'=>"Centre mis à jour"
-            ],Response::HTTP_OK);
+        $centre = $this->centreService->update($request->all(), $id);
+        if ($centre) {
+            $filteredPhotos = array_filter($request->all(), function ($value, $key) {
+                return Str::contains($key, 'photo_');
+            }, ARRAY_FILTER_USE_BOTH);
+
+            $existingMedia = $centre->getMedia('centre')->where('model_id',$id);
+            if($existingMedia){
+                foreach ($existingMedia as $currentMedia){
+                    $currentMedia->delete();
+                }
+                foreach ($filteredPhotos as $key=>$value ){
+                    try {
+                        $arr = ImageHelper::decodeBase64Image($value);
+
+                        $centre->addMediaFromBase64($arr['base64Image'])
+                            ->usingFileName($arr['filename'])
+                            ->toMediaCollection('centre');
+                    } catch (\Exception $e) {
+                        //\Log::warning("Skipping invalid image for key $key: " . $e->getMessage());
+                        continue;
+                    }
+
+                }
+
+
+                return response()->json([
+                    'success' => true,
+                    'data'    => $centre,
+                    'message' => "Centre mis à jour"
+                ], Response::HTTP_OK);
+            }
+
         }
+
         return response()->json([
-            "success"=>false,
-            "message"=>"Erreur lors de la mise à jour du centre"
-        ],Response::HTTP_NOT_FOUND);
+            "success" => false,
+            "message" => "Erreur lors de la mise à jour du centre"
+        ], Response::HTTP_NOT_FOUND);
     }
 
     /**

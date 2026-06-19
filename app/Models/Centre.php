@@ -32,6 +32,9 @@ class Centre extends Model implements HasMedia
         'photo_3',
         'photo_4',
         'photo_5',
+        'photo_6',
+        'photo_7',
+        'photo_8',
         'meta',
     ];
     protected $casts = ['image' => 'array', ];
@@ -44,16 +47,12 @@ class Centre extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('centre')
-            ->singleFile=false;
-        $this->addMediaCollection('centre')
+            ->withResponsiveImages()
             ->registerMediaConversions(function (Media $media) {
-                $this
-                    ->addMediaConversion('thumb')
+                $this->addMediaConversion('thumb')
                     ->width(100)
                     ->height(100);
             });
-        $this->addMediaCollection('centre')
-            ->withResponsiveImages();
     }
     public static function last(){
        // return static::all()->last();
