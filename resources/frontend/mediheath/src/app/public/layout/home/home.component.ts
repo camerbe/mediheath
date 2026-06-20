@@ -54,7 +54,10 @@ export class HomeComponent implements OnInit{
 
           const metaObject=JSON.parse(this.lastHome.meta as unknown as string);
           this.hashtags=metaObject.hashtag.split(',');
-          this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
+          if(this.isBrowser()){
+            this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
+          }
+
           this.seoService.setTitleAndMeta(metaObject.title,
             [
               {name:'description',content:metaObject.description},

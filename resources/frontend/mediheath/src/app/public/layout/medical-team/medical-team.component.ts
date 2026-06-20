@@ -135,7 +135,10 @@ export class MedicalTeamComponent implements OnInit{
               });
             }
           });
-          this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
+          if(!this.isBrowser()) {
+            this.seoService.setCanonicalUrl(`${window.location.protocol}//${window.location.host}${this.router.url}`);
+          }
+
           for (const hashtag of this.hashtags) {
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }
