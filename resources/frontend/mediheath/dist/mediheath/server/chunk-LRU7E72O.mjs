@@ -1,0 +1,2 @@
+import './polyfills.server.mjs';
+import{$b as m,n as t,t as r,zb as n}from"./chunk-PT2C2EN2.mjs";import"./chunk-5XUXGTUW.mjs";var p=[{path:"dashboard",loadChildren:()=>import("./chunk-GYPEH2RF.mjs").then(o=>o.DashboardModule)}],e=class o{static \u0275fac=function(i){return new(i||o)};static \u0275mod=r({type:o});static \u0275inj=t({imports:[m.forChild(p),m]})};var a=class o{static \u0275fac=function(i){return new(i||o)};static \u0275mod=r({type:o});static \u0275inj=t({imports:[n,e]})};export{a as SecuredModule};
