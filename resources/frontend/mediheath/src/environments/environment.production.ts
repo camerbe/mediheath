@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: "https://www.medihealth-clinic.org/api",
+  baseUrl: "https://api.medihealth-clinic.org",
   serverUrl: "https://www.medihealth-clinic.org"
 
 };
