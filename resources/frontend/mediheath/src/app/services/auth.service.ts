@@ -1,5 +1,5 @@
 import { Inject, inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Credentials } from '../core/models/credentials';

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Pole } from '../core/models/pole';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
