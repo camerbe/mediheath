@@ -6,6 +6,7 @@ import { ExpiredService } from '../../../services/expired.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamTypeService } from '../../../services/team-type.service';
 import { first } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -31,13 +32,14 @@ export class TeamTypeComponent implements OnInit{
   /**
    *
    */
-  constructor() {
+  constructor(private platformId: Object) {
     this.frmTeamType=this.fb.group({
       name:['',[Validators.required, Validators.minLength(3)]]
     });
 
   }
   ngOnInit(): void {
+    if(!isPlatformBrowser(this.platformId)) return;
     this.id=this.activatedRoute.snapshot.params['id'];
     this.isAddMode=!this.id;
     this.expiredService.updateState(this.authSevice.isExpired());

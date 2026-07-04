@@ -14,7 +14,7 @@ import { OtherTeam } from '../../../core/models/other-team';
   styleUrl: './other-team.component.css'
 })
 export class OtherTeamComponent implements OnInit{
-
+  
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     if (isPlatformBrowser(this.platformId)){

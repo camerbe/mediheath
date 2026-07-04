@@ -37,9 +37,10 @@ export class PoleComponent implements OnInit{
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)){
-      this.isMobile = window.innerWidth < 768;
-    }
+    if(!isPlatformBrowser(this.platformId)) return;
+    //if (isPlatformBrowser(this.platformId)){
+    this.isMobile = window.innerWidth < 768;
+    //}
     this.PoleService.getLast()
           .subscribe({
             next:data =>{

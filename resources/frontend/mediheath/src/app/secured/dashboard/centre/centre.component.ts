@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MetaData } from '../../../core/models/meta-data';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { CentreService } from '../../../services/centre.service';
 import { first } from 'rxjs';
 import { CentreDetail } from '../../../core/models/centre-detail';
 import { title } from 'node:process';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-centre',
@@ -25,7 +26,7 @@ export class CentreComponent implements OnInit {
   /**
    *
   */
- constructor() {
+ constructor(@Inject(PLATFORM_ID) private platformId: Object) {
    this.frmCentre=this.fb.group({
      description:['',Validators.required],
      photo_1:['',Validators.required],
@@ -128,7 +129,9 @@ export class CentreComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
+    if(!isPlatformBrowser(this.platformId)) return;
     this.id=this.activatedRoute.snapshot.params['id'];
     this.isAddMode=!this.id;
     this.expiredService.updateState(this.authSevice.isExpired());

@@ -1,6 +1,7 @@
 import { HomeService } from './../../../services/home.service';
-import { Component, inject, OnInit } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { Component, Inject, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+//import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../../../environments/environment';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
@@ -11,6 +12,7 @@ import { first } from 'rxjs';
 import { HomeDetail } from '../../../core/models/home-detail';
 import { MetaData } from '../../../core/models/meta-data';
 import { Home } from '../../../core/models/home';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-accueil',
@@ -38,10 +40,12 @@ export class AccueilComponent implements OnInit{
   router:Router=inject(Router);
   activatedRoute:ActivatedRoute=inject(ActivatedRoute);
 
+  readonly isBrowser = signal(false);
   /**
    *
   */
- constructor() {
+ constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+
    this.frmHome=this.fb.group({
      location:['',Validators.required],
      open_hour:['',Validators.required],
@@ -53,6 +57,7 @@ export class AccueilComponent implements OnInit{
      title:['',Validators.required],
      meta:[this.metaSEO,Validators.required],
     });
+
   }
 
   get location(){
@@ -84,6 +89,7 @@ export class AccueilComponent implements OnInit{
   }
 
   onSubmit() {
+
     if(this.isAddMode){
       this.metaSEO={
         description: this.description?.value || '',
@@ -113,6 +119,7 @@ export class AccueilComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if(!isPlatformBrowser(this.platformId)) return;
     this.id=this.activatedRoute.snapshot.params['id'];
     this.isAddMode=!this.id;
     this.expiredService.updateState(this.authSevice.isExpired());
@@ -136,3 +143,11 @@ export class AccueilComponent implements OnInit{
     }
   }
 }
+// function signal(arg0: boolean) {
+//   throw new Error('Function not implemented.');
+// }
+
+// function isPlatformBrowser(platformId: any): any {
+//   throw new Error('Function not implemented.');
+// }
+
