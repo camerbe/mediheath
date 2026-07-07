@@ -7,6 +7,7 @@ import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
 import { SeoService } from '../../../services/seo.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -77,7 +78,7 @@ export class HomeComponent implements OnInit{
 
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }
-          this.imgUrl=tempMedia.original_url.replace("localhost", "localhost:8000");
+          this.imgUrl=this.imgUrl = `${environment.serverUrl}${new URL(tempMedia.original_url).pathname}`;
 
         }
       })

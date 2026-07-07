@@ -6,6 +6,7 @@ import { PoleService } from '../../../services/pole.service';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SeoService } from '../../../services/seo.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-pole',
@@ -71,7 +72,7 @@ export class PoleComponent implements OnInit{
               // });
               this.metaService.addTag({name:'robots',content:'index, follow'});
 
-              this.imgUrl=tempMedia.original_url.replace("localhost", "localhost:8000");
+              this.imgUrl = `${environment.serverUrl}${new URL(tempMedia.original_url).pathname}`;
 
             }
           })
