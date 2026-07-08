@@ -95,6 +95,7 @@ class HomeController extends Controller
     {
         //
         $home=$this->homeService->update($request->all(),$id);
+
         if ($home){
             return response()->json([
                 'success'=>true,
