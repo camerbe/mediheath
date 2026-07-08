@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit{
               {property:'og:image:alt',content:metaObject.title},
               {property:'og:image',content:tempMedia.original_url},
               {property:'og:image:type',content:tempMedia.mime_type},
-              {property:'og:site_name',content:'medihealth.be'},
+              {property:'og:site_name',content:'medihealth-clinic.org'},
               {property:'og:type',content:'article'},
               {name:'robots',content:'index, follow'}
             ]
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit{
 
             this.metaService.addTag({ property: 'og:tag', content: hashtag.trim() });
           }
-          this.imgUrl=this.imgUrl = `${environment.serverUrl}${new URL(tempMedia.original_url).pathname}`;
+          this.imgUrl= `${environment.serverUrl}${new URL(tempMedia.original_url).pathname}`;
 
         }
       })
