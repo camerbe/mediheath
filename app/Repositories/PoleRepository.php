@@ -30,6 +30,9 @@ class PoleRepository extends Repository
 
     public function update($id, array $data)
     {
+        $current=$this->find($id);
+        //dd($data['meta']);
+        $data['meta']=isset($data['meta'])? json_encode($data['meta']):$current->meta;
         return parent::update($id, $data);
     }
 
