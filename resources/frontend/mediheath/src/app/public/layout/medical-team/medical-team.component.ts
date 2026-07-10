@@ -11,7 +11,7 @@ import { threadId } from 'worker_threads';
 import { MedicalHierarchy } from '../../../core/models/medical-hierarchy';
 import { TreeNode } from 'primeng/api';
 import { ReplaceHostPipe } from '../../../shared/pipes/replace-host.pipe';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-medical-team',
